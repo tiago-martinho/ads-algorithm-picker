@@ -1,8 +1,13 @@
 package pt.ads.server.controllers;
 
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pt.ads.server.services.AlgorithmService;
+import pt.ads.server.services.AlgorithmServiceImpl;
+
+import java.net.http.HttpResponse;
 
 @Controller
 @RequestMapping("/algorithms")
@@ -14,17 +19,10 @@ public class AlgorithmController {
 		this.algorithmService = algorithmService;
 	}
 
-
-	@GetMapping("/find")
-	@ResponseBody
-	public String find() {
-		return algorithmService.findBestAlgorithm();
-	}
-
 	@GetMapping("/execute/{algorithm}")
 	@ResponseBody
-	public String execute(@PathVariable(value="algorithm") String algorithmName) {
-		return algorithmService.executeAlgorithm(algorithmName);
+	public ResponseEntity<String> execute() {
+		return ResponseEntity.ok().build();
 	}
 
 }
