@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "owl.file",
+      "type": "java.lang.String",
+      "description": "The name of the file for the OWL ontology."
+    }
+  ]
+}

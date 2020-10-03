@@ -1,42 +1,38 @@
 package pt.ads.server.services;
 
-import java.io.IOException;
-
 import lombok.extern.slf4j.Slf4j;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 @Slf4j
 public class AlgorithmServiceImpl implements AlgorithmService {
 
-    @Value("classpath:PMOEA.owl")
-    private Resource owlFile;
+    private final OwlService owlService;
+    private final OWLReasoner owlReasoner;
 
 
-    @Override
-    public Object getAlgorithm() throws OWLOntologyCreationException, IOException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(owlFile.getInputStream());
-        OWLClass clazz = manager.getOWLDataFactory().getOWLThing();
+    public AlgorithmServiceImpl(OwlService owlService) throws IOException, OWLOntologyCreationException {
+        this.owlService = owlService;
 
-        log.debug("Ontology Loaded...");
-        log.debug("Document IRI: " + owlFile);
-        log.debug("Ontology    : " + ontology.getOntologyID());
-        log.debug("Format      : " + manager.getOntologyFormat(ontology));
-        log.debug("Thing Class : " + clazz);
-
-        return null;
+        OWLOntology ontology = owlService.loadOntology();
+        this.owlReasoner = owlService.loadReasoner(ontology);
     }
 
     @Override
-    public Object getAlgorithmResults(Object algorithm) {
-        return null;
-    }
+	public Object getAlgorithm() {
+        String classExpression = "canSolve some (isManyObjectiveProblem value true) and hasImplementationLanguage value Java";
+        owlService.executeQuery(classExpression, owlReasoner);
+		return null;
+	}
+
+	@Override
+	public Object getAlgorithmResults(Object algorithm) {
+		return null;
+	}
+
 }

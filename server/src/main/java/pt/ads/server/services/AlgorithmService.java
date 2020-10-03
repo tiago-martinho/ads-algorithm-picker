@@ -7,14 +7,13 @@ public interface AlgorithmService {
      * TODO Change the type to be returned (inspect OWL API first)
      * @return
      */
-    public Object getAlgorithm() throws Exception;
+    Object getAlgorithm() throws Exception;
 
     /**
      * TODO Change the type to be returned
      * TODO Change the type of the parameter (inspect JMetal first)
      * @return
      */
-    public Object getAlgorithmResults(Object algorithm);
-
+    Object getAlgorithmResults(Object algorithm);
 
 }

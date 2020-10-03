@@ -1,16 +1,12 @@
 package pt.ads.server.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pt.ads.server.services.AlgorithmService;
-import pt.ads.server.services.AlgorithmServiceImpl;
-
-import java.net.http.HttpResponse;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +21,7 @@ public class AlgorithmController {
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<String> getResults() throws Exception {
+		algorithmService.getAlgorithm();
 		return ResponseEntity.ok().build();
 	}
 
