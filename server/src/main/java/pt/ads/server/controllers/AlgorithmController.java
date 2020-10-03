@@ -1,6 +1,7 @@
 package pt.ads.server.controllers;
 
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ public class AlgorithmController {
 
 	private final AlgorithmService algorithmService;
 
+	@Autowired
 	public AlgorithmController(AlgorithmService algorithmService) {
 		this.algorithmService = algorithmService;
 	}
@@ -25,7 +27,7 @@ public class AlgorithmController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> getResults() {
+	public ResponseEntity<String> getResults() throws Exception {
 		return ResponseEntity.ok().build();
 	}
 
