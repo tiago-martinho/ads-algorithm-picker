@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  client:
+    image: ads-client
+    depends_on:
+      - server
+    build:
+      context: client
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    networks:
+      - ads
+
+  server:
+    image: ads-server
+    build:
+      context: server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    networks:
+      - ads
+
+networks:
+  ads:
