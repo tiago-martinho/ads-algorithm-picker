@@ -1,5 +1,6 @@
 package pt.ads.server.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 
 @Service
+@Slf4j
 public class AlgorithmServiceImpl implements AlgorithmService {
 
     private static final String ONTOLOGY_PATH = "src/main/resources/PMOEA.owl";
@@ -17,7 +19,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
     public Object getAlgorithm() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File(ONTOLOGY_PATH));
-        System.out.println(ontology);
+        log.debug(String.valueOf(ontology));
         return null;
     }
 

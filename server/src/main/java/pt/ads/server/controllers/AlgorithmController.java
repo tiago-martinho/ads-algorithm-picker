@@ -1,5 +1,6 @@
 package pt.ads.server.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,14 +13,10 @@ import pt.ads.server.services.AlgorithmServiceImpl;
 import java.net.http.HttpResponse;
 
 @Controller
+@RequiredArgsConstructor
 public class AlgorithmController {
 
 	private final AlgorithmService algorithmService;
-
-	@Autowired
-	public AlgorithmController(AlgorithmService algorithmService) {
-		this.algorithmService = algorithmService;
-	}
 
 	/**
 	 * TODO Define a model for the the response and possibly a custom model as a parameter (in that case, we should not use a GetMapping)
