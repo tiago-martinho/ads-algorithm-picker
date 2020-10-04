@@ -2,13 +2,14 @@
 # COMPILE
 #
 
-FROM node:14-alpine AS build
+FROM node:lts-alpine3.9 AS build
 
 # Create app directory
 WORKDIR /app
 
 # Install app dependencies
 COPY package.json package-lock.json ./
+
 RUN npm install
 
 ENV PATH="./node_modules/.bin:$PATH" 
@@ -16,7 +17,6 @@ ENV PATH="./node_modules/.bin:$PATH"
 # Bundle app source
 COPY . ./
 RUN ng build --prod
-
 
 
 #

@@ -20,7 +20,7 @@ public class AlgorithmController {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> getResults() throws Exception {
+	public ResponseEntity<Object> getResults() throws Exception {
 		algorithmService.getAlgorithm();
 		return ResponseEntity.ok().build();
 	}
