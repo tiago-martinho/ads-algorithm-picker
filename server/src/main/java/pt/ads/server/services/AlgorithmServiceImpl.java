@@ -3,8 +3,10 @@ package pt.ads.server.services;
 import lombok.extern.slf4j.Slf4j;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.springframework.stereotype.Service;
+import org.swrlapi.parser.SWRLParseException;
+import org.swrlapi.sqwrl.SQWRLQueryEngine;
+import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
 import java.io.IOException;
 
@@ -13,20 +15,22 @@ import java.io.IOException;
 public class AlgorithmServiceImpl implements AlgorithmService {
 
     private final OwlService owlService;
-    private final OWLReasoner owlReasoner;
+
+	private final OWLOntology owlOntology;
+	private final SQWRLQueryEngine owlQueryEngine;
 
 
     public AlgorithmServiceImpl(OwlService owlService) throws IOException, OWLOntologyCreationException {
         this.owlService = owlService;
 
-        OWLOntology ontology = owlService.loadOntology();
-        this.owlReasoner = owlService.loadReasoner(ontology);
+        this.owlOntology = owlService.loadOntology();
+        this.owlQueryEngine = owlService.loadQueryEngine(this.owlOntology);
     }
 
     @Override
-	public Object getAlgorithm() {
-        String classExpression = "canSolve some (isManyObjectiveProblem value true) and hasImplementationLanguage value Java";
-        owlService.executeQuery(classExpression, owlReasoner);
+	public Object getAlgorithm() throws SQWRLException, SWRLParseException {
+        String classExpression = "canSolve some (isManyObjectiveProblem value true) ^ hasImplementationLanguage(Java)";
+        owlService.executeQuery(classExpression, owlQueryEngine);
 		return null;
 	}
 

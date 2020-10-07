@@ -1,8 +1,11 @@
 package pt.ads.server.services;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.swrlapi.parser.SWRLParseException;
+import org.swrlapi.sqwrl.SQWRLQueryEngine;
+import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
 import java.io.IOException;
 
@@ -15,7 +18,7 @@ public interface OwlService {
      * @throws IOException the file was not loaded
      * @throws OWLOntologyCreationException the OWL file is in an invalid format.
      */
-    OWLOntology loadOntology() throws IOException, OWLOntologyCreationException;
+    @NonNull OWLOntology loadOntology() throws IOException, OWLOntologyCreationException;
 
     /**
      * Loads a reasoner from the OWL ontology.
@@ -23,14 +26,14 @@ public interface OwlService {
      * @param ontology the ontology
      * @return the reasoner
      */
-    OWLReasoner loadReasoner(OWLOntology ontology);
+    @NonNull SQWRLQueryEngine loadQueryEngine(@NonNull OWLOntology ontology);
 
     /**
      * Executes a DL query againsta given ontology reasoner.
      *
      * @param query the query
-     * @param reasoner the ontology reasoner
+     * @param queryEngine the query engine
      */
-    void executeQuery(String query, OWLReasoner reasoner);
+    void executeQuery(String query, @NonNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException;
 
 }
