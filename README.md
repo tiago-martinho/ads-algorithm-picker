@@ -1,7 +1,23 @@
 # ADS - Algorithm Picker
 
+## Para o professor
 
-## Configuration
+Primeiro é necessário importar as imagens Docker:
+`docker load image ...` (ou `docker pull ghcr.io/sandrohc/ads-client`)
+`docker load image ...` (ou `docker pull ghcr.io/sandrohc/ads-server`)
+
+Depois basta correr as imagens na mesma rede
+`docker-compose -p ads up -d client server`
+//`docker run -d --name ads-client -p 8080:8080 ghcr.io/sandrohc/ads-client`
+//`docker run -d --name ads-server -p 8080:8080 ghcr.io/sandrohc/ads-server`
+
+O website irá ficar disponível em [localhost:8080](http://localhost:8080) e a API em [localhost:8080/api/v1](http://localhost:8080/api/v1).
+
+Caso esteja a ter dificuldades em fazer o setup das aplicações, pode ver o site em produção em https://ads.sandrohc.net.
+
+
+
+## Development setup
 
 ### Client
 
