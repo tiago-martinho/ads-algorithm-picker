@@ -4,6 +4,16 @@
       "name": "owl.file",
       "type": "java.lang.String",
       "description": "The name of the file for the OWL ontology."
+    },
+    {
+      "name": "algorithm.population_size",
+      "type": "java.lang.String",
+      "description": "The population size for genetic algorithms to be run by jMetal."
+    },
+    {
+      "name": "algorithm.max_evaluations",
+      "type": "java.lang.String",
+      "description": "The maximum number of evaluations that can be run for each algorithm by jMetal."
     }
   ]
 }

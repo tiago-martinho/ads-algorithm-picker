@@ -8,12 +8,12 @@ on:
     types: [published]
 
 jobs:
-  build:
-    name: Build
+  build_client:
+    name: Client
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build client image
+      - name: Build image
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_CR_USER }}
@@ -22,7 +22,12 @@ jobs:
           repository: sandrohc/ads-client
           tag_with_ref: true
           path: client/
-      - name: Build server image
+  build_server:
+    name: Server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_CR_USER }}

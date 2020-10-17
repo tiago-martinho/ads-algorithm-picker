@@ -10,12 +10,13 @@
 	</parent>
 	<groupId>pt.ads</groupId>
 	<artifactId>server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>server</name>
-	<description>Server side project that chooses and instantiates the algorithm that optimizes the solution.</description>
+	<description>Service to select and run the algorithm to reach the optimal solution.</description>
 
 	<properties>
 		<java.version>11</java.version>
+		<jmetal.version>5.9</jmetal.version>
 	</properties>
 
 	<dependencies>
@@ -68,17 +69,22 @@
 		<dependency>
 			<groupId>org.uma.jmetal</groupId>
 			<artifactId>jmetal-core</artifactId>
-			<version>5.10</version>
+			<version>${jmetal.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.uma.jmetal</groupId>
 			<artifactId>jmetal-algorithm</artifactId>
-			<version>5.10</version>
+			<version>${jmetal.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.uma.jmetal</groupId>
 			<artifactId>jmetal-problem</artifactId>
-			<version>5.10</version>
+			<version>${jmetal.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.uma.jmetal</groupId>
+			<artifactId>jmetal-exec</artifactId>
+			<version>${jmetal.version}</version>
 		</dependency>
 	</dependencies>
 
