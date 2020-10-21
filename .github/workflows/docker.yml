@@ -26,10 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build JAR
-        run: |
-          chmod +x ./server/mvnw
-          ./server/mvnw shadowJar
       - name: Build image
         uses: docker/build-push-action@v1
         with:
