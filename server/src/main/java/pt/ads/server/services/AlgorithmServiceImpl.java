@@ -15,6 +15,7 @@ import org.uma.jmetal.operator.impl.mutation.PolynomialMutation;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.problem.multiobjective.Kursawe;
 import org.uma.jmetal.solution.DoubleSolution;
+import pt.ads.server.dto.AlgorithmInputs;
 import pt.ads.server.dto.AlgorithmResults;
 import pt.ads.server.dto.Experiment;
 
@@ -47,7 +48,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
     }
 
     @Override
-	public Experiment<DoubleSolution, List<DoubleSolution>> getAlgorithm() throws SQWRLException, SWRLParseException {
+	public Experiment<DoubleSolution, List<DoubleSolution>> getAlgorithm(AlgorithmInputs inputs) throws SQWRLException, SWRLParseException {
         String classExpression = "canSolve some (isManyObjectiveProblem value true) ^ hasImplementationLanguage(Java)";
         owlService.executeQuery(classExpression, owlQueryEngine); // TODO: find the algorithm
 
@@ -66,7 +67,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 	}
 
 	@Override
-	public AlgorithmResults<DoubleSolution, List<DoubleSolution>> getAlgorithmResults(Experiment<DoubleSolution, List<DoubleSolution>> experiment) {
+	public AlgorithmResults<DoubleSolution, List<DoubleSolution>> getAlgorithmResults(AlgorithmInputs inputs, Experiment<DoubleSolution, List<DoubleSolution>> experiment) {
 		experiment.algorithm.run();
 		return new AlgorithmResults<>(experiment.problem, experiment.algorithm, experiment.algorithm.getResult());
 	}

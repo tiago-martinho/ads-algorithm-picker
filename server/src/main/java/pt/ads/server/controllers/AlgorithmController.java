@@ -1,18 +1,22 @@
 package pt.ads.server.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.uma.jmetal.solution.DoubleSolution;
+import pt.ads.server.dto.AlgorithmInputs;
 import pt.ads.server.dto.AlgorithmResults;
 import pt.ads.server.dto.Experiment;
 import pt.ads.server.services.AlgorithmService;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AlgorithmController {
@@ -21,14 +25,18 @@ public class AlgorithmController {
 
 
 	/**
-	 * TODO Possibly define a custom model as a parameter (in that case, we should not use a GetMapping)
+	 * Find and execute an algorithm based on the user inputs.
+	 *
+	 * @param inputs the user inputs
 	 * @return the name of the algorithm and its run results for the given user parameters
 	 */
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<AlgorithmResults<DoubleSolution, List<DoubleSolution>>> getResults() throws Exception {
-		Experiment<DoubleSolution, List<DoubleSolution>> experiment = algorithmService.getAlgorithm();
-		AlgorithmResults<DoubleSolution, List<DoubleSolution>> results = algorithmService.getAlgorithmResults(experiment);
+	public ResponseEntity<AlgorithmResults<DoubleSolution, List<DoubleSolution>>> getResults(@RequestBody AlgorithmInputs inputs) throws Exception {
+		log.debug("INPUTS: " + inputs);
+
+		Experiment<DoubleSolution, List<DoubleSolution>> experiment = algorithmService.getAlgorithm(inputs);
+		AlgorithmResults<DoubleSolution, List<DoubleSolution>> results = algorithmService.getAlgorithmResults(inputs, experiment);
 
 		return ResponseEntity.ok(results);
 	}
