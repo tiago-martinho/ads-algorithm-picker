@@ -8,6 +8,7 @@ WORKDIR /build
 RUN mvn package
 
 FROM openjdk:11-jre
+WORKDIR /app
 ARG JAR_FILE=/build/target/*.jar
-COPY --from=MAVEN_BUILD $JAR_FILE /app/ads-server.jar
+COPY --from=MAVEN_BUILD $JAR_FILE ./ads-server.jar
 CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker", "-jar", "ads-server.jar"]
