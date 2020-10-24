@@ -1,10 +1,14 @@
 package pt.ads.server.services;
 
+import java.io.IOException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -13,8 +17,6 @@ import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
-
-import java.io.IOException;
 
 @Service
 @Slf4j
@@ -41,15 +43,9 @@ public class OwlServiceImpl implements OwlService {
 	}
 
 	@Override
-	public void executeQuery(String query, @NotNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException {
+	public @NonNull SQWRLResult executeQuery(String query, @NotNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException {
 		log.debug("OWL: executing query: " + query);
-
-		SQWRLResult result = queryEngine.runSQWRLQuery("findAlgorithm", query);
-
-		// Process the SQWRL result
-		while (result.next()) {
-			System.out.println("RESULT: " + result); // result.getLiteral("x").getInteger()
-		}
+		return queryEngine.runSQWRLQuery("findAlgorithm", query);
 	}
 
 }

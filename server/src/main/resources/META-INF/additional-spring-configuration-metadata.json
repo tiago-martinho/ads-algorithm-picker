@@ -6,14 +6,34 @@
       "description": "The name of the file for the OWL ontology."
     },
     {
-      "name": "algorithm.population_size",
+      "name": "algorithm.population-size",
       "type": "java.lang.String",
-      "description": "The population size for genetic algorithms to be run by jMetal."
+      "description": "The population size for the algorithm."
     },
     {
-      "name": "algorithm.max_evaluations",
+      "name": "algorithm.iterations",
       "type": "java.lang.String",
-      "description": "The maximum number of evaluations that can be run for each algorithm by jMetal."
+      "description": "The maximum number of evaluations that can be run for the algorithm."
+    },
+    {
+      "name": "algorithm.selectors.crossover.probability",
+      "type": "java.lang.String",
+      "description": "The probability of crossover."
+    },
+    {
+      "name": "algorithm.selectors.crossover.distribution-index",
+      "type": "java.lang.String",
+      "description": "The distribution index of the crossover."
+    },
+    {
+      "name": "algorithm.selectors.mutation.probability",
+      "type": "java.lang.String",
+      "description": "The probability of mutation."
+    },
+    {
+      "name": "algorithm.selectors.mutation.distribution-index",
+      "type": "java.lang.String",
+      "description": "The distribution index of the mutation."
     }
   ]
 }

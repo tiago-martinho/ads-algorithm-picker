@@ -1,0 +1,247 @@
+Prefix(:=<http://www.semanticweb.org/vbasto/ontologies/2020/9/untitled-ontology-74#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.semanticweb.org/vbasto/ontologies/2020/9/untitled-ontology-74>
+
+Declaration(Class(:Algorithm))
+Declaration(Class(:ManyObjectiveAlgorithm))
+Declaration(Class(:MultiobjectiveAlgorithm))
+Declaration(Class(:Problem))
+Declaration(DataProperty(:dealsWithHeavyProcessingEvaluationFunctions))
+Declaration(DataProperty(:maxObjectivesAlgorithmIsAbleToDealWith))
+Declaration(DataProperty(:minObjectivesAlgorithmIsAbleToDealWith))
+Declaration(NamedIndividual(:Binh2))
+Declaration(NamedIndividual(:Fonseca))
+Declaration(NamedIndividual(:FourBarTruss))
+Declaration(NamedIndividual(:Golinski))
+Declaration(NamedIndividual(:Kursawe))
+Declaration(NamedIndividual(:MultiobjectiveTSP))
+Declaration(NamedIndividual(:NMMin))
+Declaration(NamedIndividual(:NMMin2))
+Declaration(NamedIndividual(:OneZeroMax))
+Declaration(NamedIndividual(:Osyczka2))
+Declaration(NamedIndividual(:Schaffer))
+Declaration(NamedIndividual(:Srinivas))
+Declaration(NamedIndividual(:Tanaka))
+Declaration(NamedIndividual(:Viennet2))
+Declaration(NamedIndividual(:Viennet3))
+Declaration(NamedIndividual(:Viennet4))
+Declaration(NamedIndividual(:Water))
+Declaration(NamedIndividual(:abyss))
+Declaration(NamedIndividual(:cdg))
+Declaration(NamedIndividual(:cellde))
+Declaration(NamedIndividual(:dmopso))
+Declaration(NamedIndividual(:espea))
+Declaration(NamedIndividual(:gde3))
+Declaration(NamedIndividual(:gwasfga))
+Declaration(NamedIndividual(:ibea))
+Declaration(NamedIndividual(:mocell))
+Declaration(NamedIndividual(:mochc))
+Declaration(NamedIndividual(:moead))
+Declaration(NamedIndividual(:mombi))
+Declaration(NamedIndividual(:nsgaii))
+Declaration(NamedIndividual(:nsgaiii))
+Declaration(NamedIndividual(:omopso))
+Declaration(NamedIndividual(:paes))
+Declaration(NamedIndividual(:pesa2))
+Declaration(NamedIndividual(:randomsearch))
+Declaration(NamedIndividual(:rnsgaii))
+Declaration(NamedIndividual(:smpso))
+Declaration(NamedIndividual(:smsemoa))
+Declaration(NamedIndividual(:spea2))
+Declaration(NamedIndividual(:wasfga))
+
+
+############################
+#   Classes
+############################
+
+# Class: :ManyObjectiveAlgorithm (:ManyObjectiveAlgorithm)
+
+SubClassOf(:ManyObjectiveAlgorithm :Algorithm)
+
+# Class: :MultiobjectiveAlgorithm (:MultiobjectiveAlgorithm)
+
+SubClassOf(:MultiobjectiveAlgorithm :Algorithm)
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: :Binh2 (:Binh2)
+
+ClassAssertion(:Problem :Binh2)
+
+# Individual: :Fonseca (:Fonseca)
+
+ClassAssertion(:Problem :Fonseca)
+
+# Individual: :FourBarTruss (:FourBarTruss)
+
+ClassAssertion(:Problem :FourBarTruss)
+
+# Individual: :Golinski (:Golinski)
+
+ClassAssertion(:Problem :Golinski)
+
+# Individual: :Kursawe (:Kursawe)
+
+ClassAssertion(:Problem :Kursawe)
+
+# Individual: :MultiobjectiveTSP (:MultiobjectiveTSP)
+
+ClassAssertion(:Problem :MultiobjectiveTSP)
+
+# Individual: :NMMin (:NMMin)
+
+ClassAssertion(:Problem :NMMin)
+
+# Individual: :NMMin2 (:NMMin2)
+
+ClassAssertion(:Problem :NMMin2)
+
+# Individual: :OneZeroMax (:OneZeroMax)
+
+ClassAssertion(:Problem :OneZeroMax)
+
+# Individual: :Osyczka2 (:Osyczka2)
+
+ClassAssertion(:Problem :Osyczka2)
+
+# Individual: :Schaffer (:Schaffer)
+
+ClassAssertion(:Problem :Schaffer)
+
+# Individual: :Srinivas (:Srinivas)
+
+ClassAssertion(:Problem :Srinivas)
+
+# Individual: :Tanaka (:Tanaka)
+
+ClassAssertion(:Problem :Tanaka)
+
+# Individual: :Viennet2 (:Viennet2)
+
+ClassAssertion(:Problem :Viennet2)
+
+# Individual: :Viennet3 (:Viennet3)
+
+ClassAssertion(:Problem :Viennet3)
+
+# Individual: :Viennet4 (:Viennet4)
+
+ClassAssertion(:Problem :Viennet4)
+
+# Individual: :Water (:Water)
+
+ClassAssertion(:Problem :Water)
+
+# Individual: :abyss (:abyss)
+
+ClassAssertion(:Algorithm :abyss)
+
+# Individual: :cdg (:cdg)
+
+ClassAssertion(:Algorithm :cdg)
+
+# Individual: :cellde (:cellde)
+
+ClassAssertion(:Algorithm :cellde)
+
+# Individual: :dmopso (:dmopso)
+
+ClassAssertion(:Algorithm :dmopso)
+
+# Individual: :espea (:espea)
+
+ClassAssertion(:Algorithm :espea)
+
+# Individual: :gde3 (:gde3)
+
+ClassAssertion(:Algorithm :gde3)
+
+# Individual: :gwasfga (:gwasfga)
+
+ClassAssertion(:Algorithm :gwasfga)
+
+# Individual: :ibea (:ibea)
+
+ClassAssertion(:Algorithm :ibea)
+
+# Individual: :mocell (:mocell)
+
+ClassAssertion(:Algorithm :mocell)
+
+# Individual: :mochc (:mochc)
+
+ClassAssertion(:Algorithm :mochc)
+
+# Individual: :moead (:moead)
+
+ClassAssertion(:Algorithm :moead)
+
+# Individual: :mombi (:mombi)
+
+ClassAssertion(:Algorithm :mombi)
+
+# Individual: :nsgaii (:nsgaii)
+
+ClassAssertion(:MultiobjectiveAlgorithm :nsgaii)
+DataPropertyAssertion(:dealsWithHeavyProcessingEvaluationFunctions :nsgaii "true"^^xsd:boolean)
+DataPropertyAssertion(:maxObjectivesAlgorithmIsAbleToDealWith :nsgaii "3"^^xsd:integer)
+DataPropertyAssertion(:minObjectivesAlgorithmIsAbleToDealWith :nsgaii "2"^^xsd:integer)
+
+# Individual: :nsgaiii (:nsgaiii)
+
+ClassAssertion(:ManyObjectiveAlgorithm :nsgaiii)
+DataPropertyAssertion(:dealsWithHeavyProcessingEvaluationFunctions :nsgaiii "true"^^xsd:boolean)
+DataPropertyAssertion(:maxObjectivesAlgorithmIsAbleToDealWith :nsgaiii "10000"^^xsd:integer)
+DataPropertyAssertion(:minObjectivesAlgorithmIsAbleToDealWith :nsgaiii "2"^^xsd:integer)
+
+# Individual: :omopso (:omopso)
+
+ClassAssertion(:Algorithm :omopso)
+
+# Individual: :paes (:paes)
+
+ClassAssertion(:Algorithm :paes)
+
+# Individual: :pesa2 (:pesa2)
+
+ClassAssertion(:Algorithm :pesa2)
+
+# Individual: :randomsearch (:randomsearch)
+
+ClassAssertion(:Algorithm :randomsearch)
+
+# Individual: :rnsgaii (:rnsgaii)
+
+ClassAssertion(:Algorithm :rnsgaii)
+
+# Individual: :smpso (:smpso)
+
+ClassAssertion(:Algorithm :smpso)
+
+# Individual: :smsemoa (:smsemoa)
+
+ClassAssertion(:Algorithm :smsemoa)
+DataPropertyAssertion(:dealsWithHeavyProcessingEvaluationFunctions :smsemoa "false"^^xsd:boolean)
+DataPropertyAssertion(:maxObjectivesAlgorithmIsAbleToDealWith :smsemoa "3"^^xsd:integer)
+DataPropertyAssertion(:minObjectivesAlgorithmIsAbleToDealWith :smsemoa "2"^^xsd:integer)
+
+# Individual: :spea2 (:spea2)
+
+ClassAssertion(:Algorithm :spea2)
+
+# Individual: :wasfga (:wasfga)
+
+ClassAssertion(:Algorithm :wasfga)
+
+
+)

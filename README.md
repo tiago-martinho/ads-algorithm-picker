@@ -13,7 +13,9 @@ Depois basta correr as imagens na mesma rede
 
 O website irá ficar disponível em [localhost:8080](http://localhost:8080) e a API em [localhost:8080/api/v1](http://localhost:8080/api/v1).
 
-Caso esteja a ter dificuldades em fazer o setup das aplicações, pode ver o site em produção em https://ads.sandrohc.net.
+A lista de endpoints disponibilizados pela API pode ser visto em: http://localhost:8080/swagger-ui.html
+
+Caso esteja a ter dificuldades em fazer o setup das aplicações, pode ver o site em produção em https://algorithm.sandrohc.net.
 
 
 

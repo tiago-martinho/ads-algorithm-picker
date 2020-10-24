@@ -1,13 +1,14 @@
 package pt.ads.server.services;
 
+import java.io.IOException;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.swrlapi.parser.SWRLParseException;
 import org.swrlapi.sqwrl.SQWRLQueryEngine;
+import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
-
-import java.io.IOException;
 
 public interface OwlService {
 
@@ -30,10 +31,10 @@ public interface OwlService {
 
     /**
      * Executes a DL query againsta given ontology reasoner.
-     *
-     * @param query the query
+     *  @param query the query
      * @param queryEngine the query engine
-     */
-    void executeQuery(String query, @NonNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException;
+	 * @return
+	 */
+	@NonNull SQWRLResult executeQuery(String query, @NonNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException;
 
 }
