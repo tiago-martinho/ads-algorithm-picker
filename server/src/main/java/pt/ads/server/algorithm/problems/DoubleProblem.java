@@ -23,6 +23,8 @@ public class DoubleProblem extends AbstractDoubleProblem {
 
 	@Override
 	public void evaluate(DoubleSolution solution) {
+		// Evaluator taken from Kursawe
+
 		double aux, xi, xj;
 		double[] fx = new double[getNumberOfObjectives()];
 		double[] x = new double[getNumberOfVariables()];
@@ -38,10 +40,12 @@ public class DoubleProblem extends AbstractDoubleProblem {
 			fx[0] += (-10.0) * Math.exp(aux);
 		}
 
-		fx[1] = 0.0;
+		if (fx.length > 1) {
+			fx[1] = 0.0;
 
-		for (int var = 0; var < solution.getNumberOfVariables(); var++) {
-			fx[1] += Math.pow(Math.abs(x[var]), 0.8) + 5.0 * Math.sin(Math.pow(x[var], 3.0));
+			for (int var = 0; var < solution.getNumberOfVariables(); var++) {
+				fx[1] += Math.pow(Math.abs(x[var]), 0.8) + 5.0 * Math.sin(Math.pow(x[var], 3.0));
+			}
 		}
 
 		for (int i = 0; i < fx.length; i++) {

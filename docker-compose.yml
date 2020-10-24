@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   client:
-    image: ads-client
+    image: tiagomartinho/ads-client
     depends_on:
       - server
     build:
@@ -15,7 +15,7 @@ services:
       - ads
 
   server:
-    image: ads-server
+    image: tiagomartinho/ads-server
     build:
       context: server
       dockerfile: Dockerfile
