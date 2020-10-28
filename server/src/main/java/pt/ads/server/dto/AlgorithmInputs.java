@@ -8,9 +8,9 @@ import lombok.Data;
 public class AlgorithmInputs {
 
 	public int numberOfObjectives;
+	public Boolean heavyProcessing;
 	public VariableType type;
 	public List<Variable> variables;
-	public boolean heavyProcessing;
 	public AlgorithmOptions options;
 
 }

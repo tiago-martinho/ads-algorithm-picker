@@ -26,6 +26,7 @@ import pt.ads.server.dto.*;
 import pt.ads.server.exceptions.AlgorithmException;
 import pt.ads.server.exceptions.AlgorithmExecutionException;
 import pt.ads.server.exceptions.AlgorithmInputsException;
+import pt.ads.server.owl.OWLQueryBuilder;
 
 @Service
 @Slf4j
@@ -101,27 +102,31 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 
 	private Collection<String> getAlgorithmNames(AlgorithmInputs inputs) throws AlgorithmException {
 		try {
-			// TODO: make the query generation dynamic based on the user inputs
-			String query = "Algorithm(?alg) ^" +
-						   " minObjectivesAlgorithmIsAbleToDealWith(?alg,?min) ^ swrlb:lessThanOrEqual(?min," + inputs.numberOfObjectives + ")" +
-						   " maxObjectivesAlgorithmIsAbleToDealWith(?alg,?max) ^ swrlb:greaterThanOrEqual(?max," + inputs.numberOfObjectives + ")" +
-						   " -> sqwrl:select(?alg)";
+			List<String> algorithmNames = getAlgorithmNamesFromOWL(inputs);
 
-			SQWRLResult result = owlService.executeQuery(query, owlQueryEngine);
-
-			List<SQWRLResultValue> results = result.getColumn("alg");
-			List<String> resultsStr = results.stream()
-					.map(Object::toString)
-					.map(AlgorithmServiceImpl::normalize)
-					.collect(Collectors.toList());
-
-			if (resultsStr.isEmpty())
+			if (algorithmNames.isEmpty())
 				throw new AlgorithmExecutionException("No appropriate algorithm found based on your input");
 
-			return resultsStr;
+			return algorithmNames;
 		} catch (SQWRLException | SWRLParseException e) {
 			throw new AlgorithmExecutionException("Error querying knowledge database for user input", e);
 		}
+	}
+
+	private List<String> getAlgorithmNamesFromOWL(AlgorithmInputs inputs) throws SQWRLException, SWRLParseException {
+		String query = new OWLQueryBuilder()
+				.minObjectives(inputs.numberOfObjectives)
+				.maxObjectives(inputs.numberOfObjectives)
+				.heavyProcessing(inputs.heavyProcessing)
+				.build();
+
+		SQWRLResult result = owlService.executeQuery(query, owlQueryEngine);
+		List<SQWRLResultValue> results = result.getColumn("alg");
+
+		return results.stream()
+				.map(Object::toString)
+				.map(AlgorithmServiceImpl::normalize)
+				.collect(Collectors.toList());
 	}
 
 	private static String normalize(String value) {

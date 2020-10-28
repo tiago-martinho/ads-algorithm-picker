@@ -16,6 +16,7 @@ import pt.ads.server.services.AlgorithmService;
 
 @Slf4j
 @Controller
+@CrossOrigin
 @RequiredArgsConstructor
 public class AlgorithmController {
 
@@ -30,7 +31,7 @@ public class AlgorithmController {
 	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public <T extends Solution<?>> ResponseEntity<AlgorithmListResults<T, List<T>>> getResults(@RequestBody AlgorithmInputs inputs) throws Exception {
+	public <T extends Solution<?>> ResponseEntity<AlgorithmListResults<T, List<T>>> getResults(@RequestBody AlgorithmInputs inputs) {
 		log.debug("INPUTS: " + inputs);
 
 		Experiment<T, List<T>> experiment = algorithmService.getAlgorithm(inputs);
