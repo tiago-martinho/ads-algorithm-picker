@@ -10,7 +10,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 6000:80
+      - 5000:80
     networks:
       - ads
 
@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 6001:8080
+      - 5001:8080
     networks:
       - ads
 
