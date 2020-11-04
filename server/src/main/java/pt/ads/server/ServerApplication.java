@@ -20,6 +20,7 @@ public class ServerApplication {
 	public ObjectMapper jsonObjectMapper() {
 		return Jackson2ObjectMapperBuilder.json()
 				.featuresToDisable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+				.serializerByType(double.class, new DoubleRoundedSerializer())
 				.serializerByType(Double.class, new DoubleRoundedSerializer())
 				.build();
 	}
