@@ -13,10 +13,10 @@ public class IntegerProblem extends AbstractIntegerProblem {
 	protected List<Integer> lowerLimit;
 	protected List<Integer> upperLimit;
 
-	public IntegerProblem(Collection<Variable> variables, int numberOfObjectives) {
+	public IntegerProblem(Collection<Variable> variables, Collection<String> objectives) {
 		setName("Integer Problem");
 		setNumberOfVariables(variables.size());
-		setNumberOfObjectives(numberOfObjectives);
+		setNumberOfObjectives(objectives.size());
 		setLowerLimit(variables.stream().map(Variable::getLowerLimit).map(Double::intValue).collect(Collectors.toList()));
 		setUpperLimit(variables.stream().map(Variable::getUpperLimit).map(Double::intValue).collect(Collectors.toList()));
 	}

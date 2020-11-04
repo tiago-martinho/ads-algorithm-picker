@@ -13,10 +13,10 @@ public class DoubleProblem extends AbstractDoubleProblem {
 	protected List<Double> lowerLimit;
 	protected List<Double> upperLimit;
 
-	public DoubleProblem(Collection<Variable> variables, int numberOfObjectives) {
+	public DoubleProblem(Collection<Variable> variables, Collection<String> objectives) {
 		setName("Double Problem");
 		setNumberOfVariables(variables.size());
-		setNumberOfObjectives(numberOfObjectives);
+		setNumberOfObjectives(objectives.size());
 		setLowerLimit(variables.stream().map(Variable::getLowerLimit).collect(Collectors.toList()));
 		setUpperLimit(variables.stream().map(Variable::getUpperLimit).collect(Collectors.toList()));
 	}

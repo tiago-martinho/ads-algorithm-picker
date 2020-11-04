@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.abyss.ABYSSBuilder;
 import org.uma.jmetal.algorithm.multiobjective.cdg.CDGBuilder;
@@ -55,8 +55,8 @@ public class AlgorithmFactory {
 
 	@Nullable
 	@SuppressWarnings({ "SpellCheckingInspection", "unchecked" })
-	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithm(@NotNull String algorithmName, @NotNull AlgorithmOptions options, @NotNull Problem<T> problem) {
-		log.debug("Instantiating algorithm named '" + algorithmName + "' for problem: " + problem);
+	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithm(@NonNull String algorithmName, @NonNull AlgorithmOptions options, @NonNull Problem<T> problem) {
+		log.debug("Instantiating algorithm named '" + algorithmName + "'");
 
 		List<Double> referencePoint;
 
@@ -296,7 +296,7 @@ public class AlgorithmFactory {
 	}
 
 	@SuppressWarnings("unused")
-	private static @NotNull <T extends Solution<?>> BinaryTournamentSelection<T> getSelectionOperator(Problem<T> problem, AlgorithmOptions options) {
+	private static @NonNull <T extends Solution<?>> BinaryTournamentSelection<T> getSelectionOperator(Problem<T> problem, AlgorithmOptions options) {
 		return new BinaryTournamentSelection<>(new RankingAndCrowdingDistanceComparator<>());
 	}
 

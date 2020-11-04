@@ -11,10 +11,10 @@ public class BinaryProblem extends AbstractBinaryProblem {
 
 	private final Variable[] variables;
 
-	public BinaryProblem(Collection<Variable> variables, int numberOfObjectives) {
+	public BinaryProblem(Collection<Variable> variables, Collection<String> objectives) {
 		setName("Boolean Problem");
 		setNumberOfVariables(variables.size());
-		setNumberOfObjectives(numberOfObjectives);
+		setNumberOfObjectives(objectives.size());
 
 		this.variables = variables.toArray(new Variable[0]);
 	}

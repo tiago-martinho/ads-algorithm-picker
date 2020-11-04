@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,7 @@ import pt.ads.server.owl.OWLQueryBuilder;
 
 @Service
 @Slf4j
+@SuppressWarnings("FieldCanBeLocal")
 public class AlgorithmServiceImpl implements AlgorithmService {
 
 	private final AlgorithmDefaults algorithmDefaults;
@@ -51,10 +52,11 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 	public <T extends Solution<?>> Experiment<T, List<T>> getAlgorithm(AlgorithmInputs inputs) throws AlgorithmException {
 		fillDefaults(inputs);
 
-    	if (inputs.numberOfObjectives < 1)
-    		throw new AlgorithmInputsException("Number of objectives must be positive");
+    	if (inputs.objectives.isEmpty())
+    		throw new AlgorithmInputsException("You must specify at least one objective");
 
-		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.numberOfObjectives);
+		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.objectives);
+		log.debug("Problem: " + problem);
 
 		Collection<String> algorithmNames = getAlgorithmNames(inputs);
 		Collection<Algorithm<List<T>>> algorithms = getAlgorithmsFromNames(algorithmNames, inputs.options, problem);
@@ -65,7 +67,10 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		return new Experiment<>(problem, algorithms);
 	}
 
-	private void fillDefaults(@NotNull AlgorithmInputs inputs) {
+	private void fillDefaults(@NonNull AlgorithmInputs inputs) {
+    	if (inputs.objectives == null)
+    		inputs.objectives = new ArrayList<>(0);
+
     	if (inputs.options == null)
     		inputs.options = new AlgorithmOptions();
 
@@ -103,6 +108,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 	private Collection<String> getAlgorithmNames(AlgorithmInputs inputs) throws AlgorithmException {
 		try {
 			List<String> algorithmNames = getAlgorithmNamesFromOWL(inputs);
+			log.debug("Found suitable algorithms: " + algorithmNames);
 
 			if (algorithmNames.isEmpty())
 				throw new AlgorithmExecutionException("No appropriate algorithm found based on your input");
@@ -115,9 +121,9 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 
 	private List<String> getAlgorithmNamesFromOWL(AlgorithmInputs inputs) throws SQWRLException, SWRLParseException {
 		String query = new OWLQueryBuilder()
-				.minObjectives(inputs.numberOfObjectives)
-				.maxObjectives(inputs.numberOfObjectives)
-				.heavyProcessing(inputs.heavyProcessing)
+				.minObjectives(inputs.objectives.size())
+				.maxObjectives(inputs.objectives.size())
+				.heavyProcessing(inputs.options.heavyProcessing)
 				.build();
 
 		SQWRLResult result = owlService.executeQuery(query, owlQueryEngine);
@@ -143,7 +149,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 
 	@Override
 	public <T extends Solution<?>> AlgorithmListResults<T, List<T>> getAlgorithmResults(AlgorithmInputs inputs, Experiment<T, List<T>> experiment) {
-    	// Run all the algorithms in parallel
+		// Run all the algorithms in parallel
 		Collection<AlgorithmResults<List<T>>> results = experiment.algorithms.parallelStream()
 				.peek(Algorithm::run)
 				.map(algorithm -> new AlgorithmResults<>(algorithm, algorithm.getResult()))

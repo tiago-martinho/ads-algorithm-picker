@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class AlgorithmOptions {
 
+	public Boolean heavyProcessing;
+
 	public Integer populationSize;
 	public Integer iterations;
 

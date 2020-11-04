@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.jetbrains.annotations.NotNull;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -35,7 +34,7 @@ public class OwlServiceImpl implements OwlService {
 	}
 
 	@Override
-	public @NonNull SQWRLQueryEngine loadQueryEngine(@NotNull OWLOntology ontology) {
+	public @NonNull SQWRLQueryEngine loadQueryEngine(@NonNull OWLOntology ontology) {
 		log.debug("Loading SQWRL query engine");
 
 		// Create SQWRL query engine using the SWRLAPI
@@ -43,7 +42,7 @@ public class OwlServiceImpl implements OwlService {
 	}
 
 	@Override
-	public @NonNull SQWRLResult executeQuery(String query, @NotNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException {
+	public @NonNull SQWRLResult executeQuery(String query, @NonNull SQWRLQueryEngine queryEngine) throws SQWRLException, SWRLParseException {
 		log.debug("OWL: executing query: " + query);
 		return queryEngine.runSQWRLQuery("findAlgorithm", query);
 	}

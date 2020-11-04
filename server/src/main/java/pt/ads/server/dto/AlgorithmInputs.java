@@ -7,10 +7,9 @@ import lombok.Data;
 @Data
 public class AlgorithmInputs {
 
-	public int numberOfObjectives;
-	public Boolean heavyProcessing;
 	public VariableType type;
 	public List<Variable> variables;
+	public List<String> objectives;
 	public AlgorithmOptions options;
 
 }
