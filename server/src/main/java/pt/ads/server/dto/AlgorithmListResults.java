@@ -13,6 +13,6 @@ public class AlgorithmListResults<R extends Solution<?>, S> {
 
 	public final Problem<R> problem;
 
-	public final Collection<AlgorithmResults<S>> results;
+	public final AlgorithmResults<S> results;
 
 }

@@ -35,7 +35,7 @@ public class AlgorithmController {
 		log.debug("INPUTS: " + inputs);
 
 		Experiment<T, List<T>> experiment = algorithmService.getAlgorithm(inputs);
-		AlgorithmListResults<T, List<T>> results = algorithmService.getAlgorithmResults(inputs, experiment);
+		AlgorithmListResults<T, List<T>> results = algorithmService.executeAlgorithm(inputs, experiment);
 
 		return ResponseEntity.ok(results);
 	}

@@ -11,6 +11,7 @@ import org.uma.jmetal.solution.Solution;
 public class Experiment<R extends Solution<?>, S> {
 
 	public final Problem<R> problem;
-	public final Collection<Algorithm<S>> algorithms;
+	public final Algorithm<S> algorithm;
+	public final Collection<String> possibleAlgorithms;
 
 }

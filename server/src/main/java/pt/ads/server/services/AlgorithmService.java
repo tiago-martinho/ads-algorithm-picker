@@ -25,6 +25,6 @@ public interface AlgorithmService {
 	 * @param experiment the algorithm to execute
 	 * @return the results from the algorithm
      */
-    <T extends Solution<?>> AlgorithmListResults<T, List<T>> getAlgorithmResults(AlgorithmInputs inputs, Experiment<T, List<T>> experiment);
+    <T extends Solution<?>> AlgorithmListResults<T, List<T>> executeAlgorithm(AlgorithmInputs inputs, Experiment<T, List<T>> experiment);
 
 }

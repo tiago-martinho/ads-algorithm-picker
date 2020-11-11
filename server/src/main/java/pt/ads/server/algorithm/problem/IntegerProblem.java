@@ -1,4 +1,4 @@
-package pt.ads.server.algorithm.problems;
+package pt.ads.server.algorithm.problem;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,24 +6,32 @@ import java.util.stream.Collectors;
 
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.IntegerSolution;
+import pt.ads.server.dto.Objective;
+import pt.ads.server.dto.ObjectiveGoal;
 import pt.ads.server.dto.Variable;
 
-public class IntegerProblem extends AbstractIntegerProblem {
+public class IntegerProblem extends AbstractIntegerProblem implements Problem<IntegerSolution> {
 
 	protected List<Integer> lowerLimit;
 	protected List<Integer> upperLimit;
+	protected List<ObjectiveGoal> objectiveGoals;
 
-	public IntegerProblem(Collection<Variable> variables, Collection<String> objectives) {
+	public IntegerProblem(Collection<Variable> variables, Collection<Objective> objectives) {
 		setName("Integer Problem");
 		setNumberOfVariables(variables.size());
 		setNumberOfObjectives(objectives.size());
 		setLowerLimit(variables.stream().map(Variable::getLowerLimit).map(Double::intValue).collect(Collectors.toList()));
 		setUpperLimit(variables.stream().map(Variable::getUpperLimit).map(Double::intValue).collect(Collectors.toList()));
+		this.objectiveGoals = objectives.stream().map(Objective::getGoal).collect(Collectors.toList());
 	}
 
 	@Override
 	public void evaluate(IntegerSolution solution) {
-		// TODO
+		// TODO: ask the client tho choose the evaluate function
+	}
+
+	public ObjectiveGoal getObjectiveGoal(int i) {
+		return objectiveGoals.get(i);
 	}
 
 	@Override
@@ -44,7 +52,8 @@ public class IntegerProblem extends AbstractIntegerProblem {
 			   "numberOfVariables=" + getNumberOfVariables() + ',' +
 			   "numberOfObjectives=" + getNumberOfObjectives() + ',' +
 			   "lowerLimit=" + lowerLimit + ',' +
-			   "upperLimit=" + upperLimit +
+			   "upperLimit=" + upperLimit + ',' +
+			   "objectiveGoals=" + objectiveGoals +
 			   ")";
 	}
 

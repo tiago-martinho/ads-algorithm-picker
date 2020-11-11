@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.springframework.stereotype.Service;
@@ -56,15 +57,18 @@ public class AlgorithmServiceImpl implements AlgorithmService {
     		throw new AlgorithmInputsException("You must specify at least one objective");
 
 		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.objectives);
-		log.debug("Problem: " + problem);
+		log.debug("Problem: {}", problem);
 
 		Collection<String> algorithmNames = getAlgorithmNames(inputs);
-		Collection<Algorithm<List<T>>> algorithms = getAlgorithmsFromNames(algorithmNames, inputs.options, problem);
+		log.debug("Possible algorithms: {}", algorithmNames);
 
-		if (algorithms.isEmpty())
+		Algorithm<List<T>> algorithm = getAlgorithmInstance(algorithmNames, inputs.options, problem);
+		log.debug("Selected algorithm: {}", algorithm);
+
+		if (algorithm == null)
 			throw new AlgorithmExecutionException("No appropriate algorithm implementation found for " + algorithmNames);
 
-		return new Experiment<>(problem, algorithms);
+		return new Experiment<>(problem, algorithm, algorithmNames);
 	}
 
 	private void fillDefaults(@NonNull AlgorithmInputs inputs) {
@@ -92,17 +96,17 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 			options.mutationDistributionIndex = algorithmDefaults.mutationDistributionIndex;
 	}
 
-	private <T extends Solution<?>> Collection<Algorithm<List<T>>> getAlgorithmsFromNames(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
-		Collection<Algorithm<List<T>>> algorithms = new ArrayList<>(algorithmNames.size());
-
+	@Nullable
+	private <T extends Solution<?>> Algorithm<List<T>> getAlgorithmInstance(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
 		for (String name : algorithmNames) {
-			Algorithm<List<T>> algorithm = AlgorithmFactory.getAlgorithm(name, options, problem);
-			if (algorithm != null) {
-				algorithms.add(algorithm);
+			try {
+				return AlgorithmFactory.getAlgorithm(name, options, problem);
+			} catch (Exception e) {
+				log.warn("Unable to instantiate algorithm: {}", name, e);
 			}
 		}
 
-		return algorithms;
+		return null;
 	}
 
 	private Collection<String> getAlgorithmNames(AlgorithmInputs inputs) throws AlgorithmException {
@@ -148,14 +152,16 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 	}
 
 	@Override
-	public <T extends Solution<?>> AlgorithmListResults<T, List<T>> getAlgorithmResults(AlgorithmInputs inputs, Experiment<T, List<T>> experiment) {
-		// Run all the algorithms in parallel
-		Collection<AlgorithmResults<List<T>>> results = experiment.algorithms.parallelStream()
-				.peek(Algorithm::run)
-				.map(algorithm -> new AlgorithmResults<>(algorithm, algorithm.getResult()))
-				.collect(Collectors.toList());
+	public <T extends Solution<?>> AlgorithmListResults<T, List<T>> executeAlgorithm(AlgorithmInputs inputs, Experiment<T, List<T>> experiment) {
 
-		return new AlgorithmListResults<>(inputs, experiment.problem, results);
+    	// Execute the algorithm and fetch the solutions
+		experiment.algorithm.run();
+		List<T> results = experiment.algorithm.getResult();
+
+		// TODO: Flip objective if it should NOT be minimized (use this: experiment.problem.minimizeObjective(i))
+		// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
+
+		return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(experiment.algorithm, results));
 	}
 
 }

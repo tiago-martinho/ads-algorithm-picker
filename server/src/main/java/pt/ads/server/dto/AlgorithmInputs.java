@@ -9,7 +9,7 @@ public class AlgorithmInputs {
 
 	public VariableType type;
 	public List<Variable> variables;
-	public List<String> objectives;
+	public List<Objective> objectives;
 	public AlgorithmOptions options;
 
 }
