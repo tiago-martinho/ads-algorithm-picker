@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-variable-list',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VariableListComponent implements OnInit {
   items: string[];
+  faPlus = faPlus
 
   constructor() {
     this.items = ['Grain quality index', 'Grain cost'];

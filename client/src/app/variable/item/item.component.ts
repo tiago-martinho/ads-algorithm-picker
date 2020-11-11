@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-variable-item',
@@ -6,7 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./item.component.scss']
 })
 export class VariableItemComponent implements OnInit {
-  @Input('name') name: string; // tslint:disable-line:no-input-rename
+  faTrash=faTrash;
+
+  @Input() name: string; // tslint:disable-line:no-input-rename
   @Output() removed = new EventEmitter<string>();
 
   constructor() { }

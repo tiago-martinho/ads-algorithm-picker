@@ -1,15 +1,21 @@
 <li class="list-group-item mb-2">
-    <input name="name" type="text" value="{{name}}" />
+    <div class="row">
+        <div class="col-md-10">
+            <input name="name" type="text" value="{{name}}" />
+            <select name="type">
+                <option value="DOUBLE">Double</option>
+                <option value="INTEGER">Integer</option>
+                <option value="BINARY">Binary</option>
+            </select>
 
-    <select name="type">
-        <option value="DOUBLE">Double</option>
-        <option value="INTEGER">Integer</option>
-        <option value="BINARY">Binary</option>
-    </select>
+            <!-- This needs to change dynamically when we change the type -->
+            <input name="from" type="number" value="-10" />
+            <input name="to" type="number" value="10" />
+        
+        </div>    
+        <div class="col-md-2">
+             <fa-icon (click)="removeSelf()" [icon]="faTrash" class="float-right " style="color:red" size="lg" ></fa-icon>
+        </div>
+    </div>
 
-    <input name="from" type="number" value="-10" />
-
-    <input name="to" type="number" value="10" />
-
-    <button (click)="removeSelf()">Remove</button>
 </li>

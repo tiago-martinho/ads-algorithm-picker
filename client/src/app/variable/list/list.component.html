@@ -4,4 +4,5 @@
     <app-variable-item *ngFor="let item of items; index as i;" [name]="item" (removed)="removeVariable(i)"></app-variable-item>
 </ul>
 
-<button (click)="addVariable()">Add</button>
+<fa-icon [icon]="faPlus" class="d-flex justify-content-center" style="color:black;" size="2x" (click)="addVariable()" ></fa-icon>
+
