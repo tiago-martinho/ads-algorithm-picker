@@ -3,15 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ArgumentItemComponent } from './argument/item/item.component';
-import { ArgumentListComponent } from './argument/list/list.component';
+import { VariableItemComponent } from './variable/item/item.component';
+import { VariableListComponent } from './variable/list/list.component';
+import { ObjectiveItemComponent } from './objective/item/item.component';
+import { ObjectiveListComponent } from './objective/list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ArgumentItemComponent,
-    ArgumentListComponent
+    VariableItemComponent,
+    VariableListComponent,
+    ObjectiveItemComponent,
+    ObjectiveListComponent,
   ],
   imports: [
     BrowserModule

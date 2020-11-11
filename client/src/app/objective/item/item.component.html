@@ -1,0 +1,10 @@
+<li class="list-group-item mb-2">
+    <input name="name" type="text" value="{{name}}" />
+
+    <select name="goal">
+        <option value="MINIMIZE">Minimize</option>
+        <option value="MAXIMIZE">Maximize</option>
+    </select>
+
+    <button (click)="removeSelf()">Remove</button>
+</li>

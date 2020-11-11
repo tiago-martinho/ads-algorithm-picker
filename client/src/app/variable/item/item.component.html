@@ -1,0 +1,15 @@
+<li class="list-group-item mb-2">
+    <input name="name" type="text" value="{{name}}" />
+
+    <select name="type">
+        <option value="DOUBLE">Double</option>
+        <option value="INTEGER">Integer</option>
+        <option value="BINARY">Binary</option>
+    </select>
+
+    <input name="from" type="number" value="-10" />
+
+    <input name="to" type="number" value="10" />
+
+    <button (click)="removeSelf()">Remove</button>
+</li>

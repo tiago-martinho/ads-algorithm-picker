@@ -1,0 +1,7 @@
+<p>Output Objectives</p>
+
+<ul class="list-group">
+    <app-objective-item *ngFor="let item of items; index as i;" [name]="item" (removed)="removeObjective(i)"></app-objective-item>
+</ul>
+
+<button (click)="addObjective()">Add</button>
