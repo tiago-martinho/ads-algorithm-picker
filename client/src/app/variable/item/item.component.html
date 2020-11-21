@@ -1,19 +1,27 @@
 <li class="list-group-item mb-2">
     <div class="row">
-        <div class="col-md-10">
-            <input name="name" type="text" value="{{name}}" />
-            <select name="type">
-                <option value="DOUBLE">Double</option>
-                <option value="INTEGER">Integer</option>
-                <option value="BINARY">Binary</option>
-            </select>
+        <div class="col-md-11">
+                <input name="name" type="text" value="{{name}}" class="col-md-4 mr-3" />
+                
+                <select name="type"  [(ngModel)]="selectedOption" class="col-md-2 mr-3"  >
+                    <option *ngFor="let option of options | keyvalue" >{{option.value}}</option>
+                </select>
 
-            <!-- This needs to change dynamically when we change the type -->
-            <input name="from" type="number" value="-10" />
-            <input name="to" type="number" value="10" />
-        
+                <span *ngIf="selectedOption == options.Double" >
+                    <input name="from" class="col-md-2 mr-3" type="number" value="-1.0" step="0.01"/>
+                    <input name="to"  class="col-md-2 " type="number" value="1.0" step="0.01"/>
+                </span>
+                
+                <span *ngIf="selectedOption == options.Integer">
+                    <input name="from" class="col-md-2 mr-3" type="number" value="-10" />
+                    <input name="to"  class="col-md-2 " type="number" value="10" />
+                </span>
+
+                <span *ngIf="selectedOption == options.Binary">
+                    <input name="from" class="col-md-2 mr-3" type="checkbox" value="-10" />
+                </span>
         </div>    
-        <div class="col-md-2">
+        <div class="col-md-1">
              <fa-icon (click)="removeSelf()" [icon]="faTrash" class="float-right " style="color:red" size="lg" ></fa-icon>
         </div>
     </div>

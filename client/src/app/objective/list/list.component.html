@@ -1,7 +1,8 @@
 <p>Output Objectives</p>
 
-<ul class="list-group">
+<ul class="list-group mb-2">
     <app-objective-item *ngFor="let item of items; index as i;" [name]="item" (removed)="removeObjective(i)"></app-objective-item>
 </ul>
 
-<button (click)="addObjective()">Add</button>
+<fa-icon [icon]="faPlus" class="d-flex justify-content-center" style="color:black;" size="2x" (click)="addObjective()" ></fa-icon>
+

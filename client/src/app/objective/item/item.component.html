@@ -1,10 +1,14 @@
 <li class="list-group-item mb-2">
-    <input name="name" type="text" value="{{name}}" />
+    <div class="row">
+        <div class="col-md-11">
+            <input name="name" type="text" value="{{name}}" class="col-6 mr-3" />
 
-    <select name="goal">
-        <option value="MINIMIZE">Minimize</option>
-        <option value="MAXIMIZE">Maximize</option>
-    </select>
-
-    <button (click)="removeSelf()">Remove</button>
+            <select name="type"  [(ngModel)]="selectedOption" class="col-3 mr-2"  >
+                <option *ngFor="let option of options | keyvalue" >{{option.value}}</option>
+            </select>
+        </div>    
+        <div class="col-md-1">
+            <fa-icon (click)="removeSelf()" [icon]="faTrash" class="float-right " style="color:red" size="lg" ></fa-icon>
+        </div>
+    </div>
 </li>

@@ -7,7 +7,10 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./item.component.scss']
 })
 export class VariableItemComponent implements OnInit {
+
+  public options = TypeOptions;
   faTrash=faTrash;
+  selectedOption =  TypeOptions.Double
 
   @Input() name: string; // tslint:disable-line:no-input-rename
   @Output() removed = new EventEmitter<string>();
@@ -21,4 +24,10 @@ export class VariableItemComponent implements OnInit {
     this.removed.emit();
   }
 
+}
+
+export enum TypeOptions {
+	Double = "Double" ,
+	Integer = "Integer",
+	Binary = "Binary"
 }

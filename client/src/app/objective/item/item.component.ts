@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-objective-item',
@@ -8,6 +9,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ObjectiveItemComponent implements OnInit {
   @Input('name') name: string; // tslint:disable-line:no-input-rename
   @Output() removed = new EventEmitter<string>();
+
+  faTrash=faTrash;
+  public options = ObjectiveOptions;
+  selectedOption =  ObjectiveOptions.Minimize
+
 
   constructor() { }
 
@@ -19,3 +25,9 @@ export class ObjectiveItemComponent implements OnInit {
   }
 
 }
+
+export enum ObjectiveOptions {
+	Minimize = "Minimize" ,
+	Maximize = "Maximize",
+}
+

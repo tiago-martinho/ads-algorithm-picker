@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-objective-list',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ObjectiveListComponent implements OnInit {
   items: string[];
+  faPlus = faPlus
 
   constructor() {
     this.items = ['Cost', 'Quality'];
