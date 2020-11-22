@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,6 +10,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class VariableListComponent implements OnInit {
   items: string[];
   faPlus = faPlus
+
+  public options = TypeOptions;
+  selectedOption =  TypeOptions.Double
 
   constructor() {
     this.items = ['Grain quality index', 'Grain cost'];
@@ -28,3 +32,10 @@ export class VariableListComponent implements OnInit {
   }
 
 }
+
+export enum TypeOptions {
+	Double = "Double" ,
+	Integer = "Integer",
+	Binary = "Binary"
+}
+

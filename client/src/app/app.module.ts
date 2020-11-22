@@ -8,8 +8,8 @@ import { VariableListComponent } from './variable/list/list.component';
 import { ObjectiveItemComponent } from './objective/item/item.component';
 import { ObjectiveListComponent } from './objective/list/list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'      //Import here
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,6 +25,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
 
   ],
   providers: [],

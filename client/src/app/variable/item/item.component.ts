@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { TypeOptions } from '../list/list.component';
 
 @Component({
   selector: 'app-variable-item',
@@ -8,16 +10,18 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class VariableItemComponent implements OnInit {
 
-  public options = TypeOptions;
   faTrash=faTrash;
-  selectedOption =  TypeOptions.Double
+  options = TypeOptions;
+  @Input() selectedOption: TypeOptions; // tslint:disable-line:no-input-rename
 
   @Input() name: string; // tslint:disable-line:no-input-rename
   @Output() removed = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit(): void {
+
   }
 
   removeSelf(): void {
@@ -26,8 +30,3 @@ export class VariableItemComponent implements OnInit {
 
 }
 
-export enum TypeOptions {
-	Double = "Double" ,
-	Integer = "Integer",
-	Binary = "Binary"
-}
