@@ -32,7 +32,7 @@ export class VariableItemComponent implements OnInit {
     this.parentForm.addControl("lowerLimit", new FormControl());
     this.parentForm.addControl("upperLimit", new FormControl());
     this.parent.push(this.parentForm)
-
+    
 
   }
 
