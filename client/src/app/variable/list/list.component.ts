@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,14 +11,22 @@ export class VariableListComponent implements OnInit {
   items: string[];
   faPlus = faPlus
 
-  public options = TypeOptions;
-  selectedOption =  TypeOptions.Double
+  @Input() parent: FormGroup;
 
-  constructor() {
+  variables: FormArray;
+
+  public options = TypeOptions;
+  selectedOption =  TypeOptions.Integer
+
+  constructor(protected changeDetectorRef: ChangeDetectorRef) {
     this.items = ['Grain quality index', 'Grain cost'];
   }
 
   ngOnInit(): void {
+    this.variables = new FormArray([]);
+    this.parent.addControl("problemType", new FormControl(this.selectedOption));
+    this.parent.addControl("variables", this.variables);
+
   }
 
   addVariable(): void {
@@ -34,8 +42,8 @@ export class VariableListComponent implements OnInit {
 }
 
 export enum TypeOptions {
-	Double = "Double" ,
+  Double = "Double" ,
+  Binary = "Binary",
 	Integer = "Integer",
-	Binary = "Binary"
 }
 
