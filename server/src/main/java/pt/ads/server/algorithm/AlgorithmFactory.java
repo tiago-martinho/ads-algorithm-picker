@@ -1,11 +1,18 @@
 package pt.ads.server.algorithm;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Constructor;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.reflections8.Reflections;
+import org.reflections8.scanners.ResourcesScanner;
+import org.reflections8.scanners.SubTypesScanner;
+import org.reflections8.util.ClasspathHelper;
+import org.reflections8.util.ConfigurationBuilder;
+import org.reflections8.util.FilterBuilder;
 import org.uma.jmetal.algorithm.Algorithm;
 import org.uma.jmetal.algorithm.multiobjective.abyss.ABYSSBuilder;
 import org.uma.jmetal.algorithm.multiobjective.cdg.CDGBuilder;
@@ -28,6 +35,7 @@ import org.uma.jmetal.algorithm.multiobjective.spea2.SPEA2Builder;
 import org.uma.jmetal.algorithm.multiobjective.wasfga.WASFGA;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
+import org.uma.jmetal.operator.SelectionOperator;
 import org.uma.jmetal.operator.impl.crossover.DifferentialEvolutionCrossover;
 import org.uma.jmetal.operator.impl.crossover.IntegerSBXCrossover;
 import org.uma.jmetal.operator.impl.crossover.SBXCrossover;
@@ -44,8 +52,10 @@ import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.problem.impl.AbstractIntegerProblem;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.AlgorithmBuilder;
 import org.uma.jmetal.util.archive.impl.CrowdingDistanceArchive;
 import org.uma.jmetal.util.comparator.RankingAndCrowdingDistanceComparator;
+import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 import org.uma.jmetal.util.neighborhood.impl.C9;
 import pt.ads.server.dto.AlgorithmOptions;
@@ -53,10 +63,110 @@ import pt.ads.server.dto.AlgorithmOptions;
 @Slf4j
 public class AlgorithmFactory {
 
+	private static final String BASE_PACKAGE = "org.uma.jmetal.algorithm";
+	private static final Reflections reflections = initializeReflections(BASE_PACKAGE);
+
+	@Nullable
+	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithm(@NonNull String algorithmName, @NonNull AlgorithmOptions options, @NonNull Problem<T> problem) {
+		Algorithm<List<T>> algorithm = getAlgorithmReflection(algorithmName, options, problem);
+
+		if (algorithm == null) {
+			log.info("Unable to initialize algorithm through reflection. Using fallback method");
+			algorithm = getAlgorithmFallback(algorithmName, options, problem);
+		}
+
+		if (algorithm == null) {
+			log.warn("Unable to initialize algorithm: " + algorithmName);
+		}
+
+		return algorithm;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Nullable
+	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithmReflection(@NonNull String algorithmName, @NonNull AlgorithmOptions options, @NonNull Problem<T> problem) {
+		log.trace("Initializing algorithm '" + algorithmName + "' through reflection");
+
+		List<Class<?>> classes = findClassesByName(algorithmName);
+		for (Class<?> clazz : classes) {
+			log.trace("Trying class: " + clazz);
+
+			// Find constructors - ordered by the one with fewer parameters
+			List<Constructor<?>> constructors = Arrays.stream(clazz.getDeclaredConstructors())
+					.sorted(Comparator.comparingInt(Constructor::getParameterCount))
+					.collect(Collectors.toList());
+
+			for (Constructor<?> constructor : constructors) {
+				log.trace("Trying constructor: " + constructor);
+
+				try {
+					Class<?>[] paramTypes = constructor.getParameterTypes();
+					Object[] params = new Object[paramTypes.length];
+
+					// TODO
+					Map<Class, Object> typeResolver = new HashMap<>();
+					typeResolver.put(int.class, 10);
+					typeResolver.put(Integer.class, 10);
+					typeResolver.put(float.class, 10.0);
+					typeResolver.put(Float.class, 10.0);
+					typeResolver.put(double.class, 10.0);
+					typeResolver.put(Double.class, 10.0);
+					typeResolver.put(Problem.class, problem);
+					typeResolver.put(CrossoverOperator.class, getCrossoverOperator(problem, options));
+					typeResolver.put(MutationOperator.class, getMutationOperator(problem, options));
+					typeResolver.put(SelectionOperator.class, getSelectionOperator(problem, options));
+					typeResolver.put(SolutionListEvaluator.class, new SequentialSolutionListEvaluator<>());
+
+					for (int i = 0; i < params.length; i++) {
+						Class<?> type = paramTypes[i];
+						params[i] = typeResolver.get(type);
+					}
+
+					Object o = constructor.newInstance(params);
+
+					if (o instanceof AlgorithmBuilder) {
+						AlgorithmBuilder<?> builder = (AlgorithmBuilder<?>) o;
+						// TODO: call methods for: population, crossover, mutation, selection, etc
+						return (Algorithm<List<T>>) builder.build();
+					} else if (o instanceof Algorithm) {
+						return (Algorithm<List<T>>) o;
+					}
+				} catch (Exception ignored) { }
+			}
+		}
+
+		return null;
+	}
+
+
+	public static List<Class<?>> findClassesByName(String name) {
+		// TODO: builders should appear first
+		// TODO: be careful with classes - 'NSGAII' should come before 'NSGAIII'
+
+		return reflections.getSubTypesOf(Object.class).stream()
+				.filter(c -> c.getSimpleName().toUpperCase().startsWith(name))
+				.sorted(Comparator.comparingInt(a -> ((Class<?>) a).getSimpleName().length()).reversed()) // sort by length - biggest first
+				.collect(Collectors.toList());
+	}
+
+	@SuppressWarnings("SameParameterValue")
+	private static Reflections initializeReflections(String basePackage) {
+		List<ClassLoader> classLoadersList = new LinkedList<>();
+		classLoadersList.add(ClasspathHelper.contextClassLoader());
+		classLoadersList.add(ClasspathHelper.staticClassLoader());
+
+		return new Reflections(new ConfigurationBuilder()
+				.setScanners(new SubTypesScanner(false), new ResourcesScanner())
+				.setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
+				.filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix(basePackage))));
+	}
+
+
+
 	@Nullable
 	@SuppressWarnings({ "SpellCheckingInspection", "unchecked" })
-	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithm(@NonNull String algorithmName, @NonNull AlgorithmOptions options, @NonNull Problem<T> problem) {
-		log.debug("Instantiating algorithm named '" + algorithmName + "'");
+	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithmFallback(@NonNull String algorithmName, @NonNull AlgorithmOptions options, @NonNull Problem<T> problem) {
+		log.trace("Initializing algorithm '" + algorithmName + "' through fallback method");
 
 		List<Double> referencePoint;
 
