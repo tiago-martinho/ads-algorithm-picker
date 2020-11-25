@@ -59,10 +59,10 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.objectives);
 		log.debug("Problem: {}", problem);
 
-		Collection<String> algorithmNames = getAlgorithmNames(inputs);
+		Collection<String> algorithmNames = findBestAlgorithms(inputs);
 		log.debug("Possible algorithms: {}", algorithmNames);
 
-		Algorithm<List<T>> algorithm = getAlgorithmInstance(algorithmNames, inputs.options, problem);
+		Algorithm<List<T>> algorithm = initializeAlgorithm(algorithmNames, inputs.options, problem);
 		log.debug("Selected algorithm: {}", algorithm);
 
 		if (algorithm == null)
@@ -71,33 +71,8 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		return new Experiment<>(problem, algorithm, algorithmNames);
 	}
 
-	private void fillDefaults(@NonNull AlgorithmInputs inputs) {
-    	if (inputs.objectives == null)
-    		inputs.objectives = new ArrayList<>(0);
-
-    	if (inputs.options == null)
-    		inputs.options = new AlgorithmOptions();
-
-		AlgorithmOptions options = inputs.options;
-
-		if (options.populationSize == null)
-			options.populationSize = algorithmDefaults.populationSize;
-		if (options.iterations == null)
-			options.iterations = algorithmDefaults.iterations;
-
-		if (options.crossoverProbability == null)
-			options.crossoverProbability = algorithmDefaults.crossoverProbability;
-		if (options.crossoverDistributionIndex == null)
-			options.crossoverDistributionIndex = algorithmDefaults.crossoverDistributionIndex;
-
-		if (options.mutationProbability == null)
-			options.mutationProbability = algorithmDefaults.mutationProbability;
-		if (options.mutationDistributionIndex == null)
-			options.mutationDistributionIndex = algorithmDefaults.mutationDistributionIndex;
-	}
-
 	@Nullable
-	private <T extends Solution<?>> Algorithm<List<T>> getAlgorithmInstance(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
+	private <T extends Solution<?>> Algorithm<List<T>> initializeAlgorithm(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
 		for (String name : algorithmNames) {
 			try {
 				return AlgorithmFactory.getAlgorithm(name, options, problem);
@@ -109,9 +84,9 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		return null;
 	}
 
-	private Collection<String> getAlgorithmNames(AlgorithmInputs inputs) throws AlgorithmException {
+	private Collection<String> findBestAlgorithms(AlgorithmInputs inputs) throws AlgorithmException {
 		try {
-			List<String> algorithmNames = getAlgorithmNamesFromOWL(inputs);
+			List<String> algorithmNames = findAlgorithmsOWL(inputs);
 			log.debug("Found suitable algorithms: " + algorithmNames);
 
 			if (algorithmNames.isEmpty())
@@ -123,7 +98,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		}
 	}
 
-	private List<String> getAlgorithmNamesFromOWL(AlgorithmInputs inputs) throws SQWRLException, SWRLParseException {
+	private List<String> findAlgorithmsOWL(AlgorithmInputs inputs) throws SQWRLException, SWRLParseException {
 		String query = new OWLQueryBuilder()
 				.minObjectives(inputs.objectives.size())
 				.maxObjectives(inputs.objectives.size())
@@ -162,6 +137,31 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
 
 		return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(experiment.algorithm, results));
+	}
+
+	private void fillDefaults(@NonNull AlgorithmInputs inputs) {
+		if (inputs.objectives == null)
+			inputs.objectives = new ArrayList<>(0);
+
+		if (inputs.options == null)
+			inputs.options = new AlgorithmOptions();
+
+		AlgorithmOptions options = inputs.options;
+
+		if (options.populationSize == null)
+			options.populationSize = algorithmDefaults.populationSize;
+		if (options.iterations == null)
+			options.iterations = algorithmDefaults.iterations;
+
+		if (options.crossoverProbability == null)
+			options.crossoverProbability = algorithmDefaults.crossoverProbability;
+		if (options.crossoverDistributionIndex == null)
+			options.crossoverDistributionIndex = algorithmDefaults.crossoverDistributionIndex;
+
+		if (options.mutationProbability == null)
+			options.mutationProbability = algorithmDefaults.mutationProbability;
+		if (options.mutationDistributionIndex == null)
+			options.mutationDistributionIndex = algorithmDefaults.mutationDistributionIndex;
 	}
 
 }
