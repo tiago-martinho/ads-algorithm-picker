@@ -1,6 +1,7 @@
 package pt.ads.server.dto;
 
 import java.util.Collection;
+import java.util.List;
 
 import lombok.Data;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -11,7 +12,7 @@ import org.uma.jmetal.solution.Solution;
 public class Experiment<R extends Solution<?>, S> {
 
 	public final Problem<R> problem;
-	public final Algorithm<S> algorithm;
+	public final List<Algorithm<S>> algorithms;
 	public final Collection<String> possibleAlgorithms;
 
 }

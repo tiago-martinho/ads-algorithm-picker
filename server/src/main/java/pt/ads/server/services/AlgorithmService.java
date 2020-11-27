@@ -16,7 +16,7 @@ public interface AlgorithmService {
 	 * @param inputs the user inputs
      * @return the best algorithm for the problem
      */
-    <T extends Solution<?>> Experiment<T, List<T>> getAlgorithm(AlgorithmInputs inputs) throws AlgorithmException;
+    <T extends Solution<?>> Experiment<T, List<T>> getAlgorithms(AlgorithmInputs inputs) throws AlgorithmException;
 
     /**
      * Executes the algorithm.
@@ -25,6 +25,6 @@ public interface AlgorithmService {
 	 * @param experiment the algorithm to execute
 	 * @return the results from the algorithm
      */
-    <T extends Solution<?>> AlgorithmListResults<T, List<T>> executeAlgorithm(AlgorithmInputs inputs, Experiment<T, List<T>> experiment);
+    <T extends Solution<?>> AlgorithmListResults<T, List<T>> executeAlgorithms(AlgorithmInputs inputs, Experiment<T, List<T>> experiment);
 
 }

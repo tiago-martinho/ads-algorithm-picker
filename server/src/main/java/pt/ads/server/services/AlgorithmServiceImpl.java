@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
     }
 
 	@Override
-	public <T extends Solution<?>> Experiment<T, List<T>> getAlgorithm(AlgorithmInputs inputs) throws AlgorithmException {
+	public <T extends Solution<?>> Experiment<T, List<T>> getAlgorithms(AlgorithmInputs inputs) throws AlgorithmException {
 		fillDefaults(inputs);
 
     	if (inputs.objectives.isEmpty())
@@ -62,26 +61,37 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		Collection<String> algorithmNames = findBestAlgorithms(inputs);
 		log.debug("Possible algorithms: {}", algorithmNames);
 
-		Algorithm<List<T>> algorithm = initializeAlgorithm(algorithmNames, inputs.options, problem);
-		log.debug("Selected algorithm: {}", algorithm);
+		List<Algorithm<List<T>>> algorithms = initializeAlgorithms(algorithmNames, inputs.options, problem);
 
-		if (algorithm == null)
+		if (algorithms.isEmpty())
 			throw new AlgorithmExecutionException("No appropriate algorithm implementation found for " + algorithmNames);
 
-		return new Experiment<>(problem, algorithm, algorithmNames);
+		return new Experiment<>(problem, algorithms, algorithmNames);
 	}
 
-	@Nullable
-	private <T extends Solution<?>> Algorithm<List<T>> initializeAlgorithm(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
-		for (String name : algorithmNames) {
+	@NonNull
+	private <T extends Solution<?>> List<Algorithm<List<T>>> initializeAlgorithms(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
+		List<Algorithm<List<T>>> algorithms = new ArrayList<>(0);
+
+    	for (String name : algorithmNames) {
 			try {
-				return AlgorithmFactory.getAlgorithm(name, options, problem);
+				Algorithm<List<T>> algorithmReflection = AlgorithmFactory.getAlgorithmReflection(name, options, problem);
+				if (algorithmReflection != null)
+					algorithms.add(algorithmReflection);
 			} catch (Exception e) {
-				log.warn("Unable to instantiate algorithm: {}", name, e);
+				log.warn("Unable to instantiate algorithm though reflection: {}", name, e);
+			}
+
+			try {
+				Algorithm<List<T>> algorithmFallback = AlgorithmFactory.getAlgorithmFallback(name, options, problem);
+				if (algorithmFallback != null)
+					algorithms.add(algorithmFallback);
+			} catch (Exception e) {
+				log.warn("Unable to instantiate algorithm though fallback: {}", name, e);
 			}
 		}
 
-		return null;
+		return algorithms;
 	}
 
 	private Collection<String> findBestAlgorithms(AlgorithmInputs inputs) throws AlgorithmException {
@@ -127,16 +137,23 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 	}
 
 	@Override
-	public <T extends Solution<?>> AlgorithmListResults<T, List<T>> executeAlgorithm(AlgorithmInputs inputs, Experiment<T, List<T>> experiment) {
+	public <T extends Solution<?>> AlgorithmListResults<T, List<T>> executeAlgorithms(AlgorithmInputs inputs, Experiment<T, List<T>> experiment) {
+    	// Execute the algorithms one by one until once succeeds, and then fetch it's results
+		for (Algorithm<List<T>> algorithm : experiment.algorithms) {
+			try {
+				algorithm.run();
+				List<T> results = algorithm.getResult();
 
-    	// Execute the algorithm and fetch the solutions
-		experiment.algorithm.run();
-		List<T> results = experiment.algorithm.getResult();
+				// TODO: Flip objective if it should NOT be minimized (use this: experiment.problem.minimizeObjective(i))
+				// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
 
-		// TODO: Flip objective if it should NOT be minimized (use this: experiment.problem.minimizeObjective(i))
-		// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
+				return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(algorithm, results));
+			} catch (Exception ignored) { }
+		}
 
-		return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(experiment.algorithm, results));
+		// Failed executing all algorithms
+		log.warn("Unable to execute all instances of the algorithms: {}", experiment.algorithms);
+		return new AlgorithmListResults<>(inputs, experiment.problem, null);
 	}
 
 	private void fillDefaults(@NonNull AlgorithmInputs inputs) {

@@ -34,8 +34,8 @@ public class AlgorithmController {
 	public <T extends Solution<?>> ResponseEntity<AlgorithmListResults<T, List<T>>> getResults(@RequestBody AlgorithmInputs inputs) {
 		log.debug("INPUTS: " + inputs);
 
-		Experiment<T, List<T>> experiment = algorithmService.getAlgorithm(inputs);
-		AlgorithmListResults<T, List<T>> results = algorithmService.executeAlgorithm(inputs, experiment);
+		Experiment<T, List<T>> experiment = algorithmService.getAlgorithms(inputs);
+		AlgorithmListResults<T, List<T>> results = algorithmService.executeAlgorithms(inputs, experiment);
 
 		return ResponseEntity.ok(results);
 	}
