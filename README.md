@@ -2,9 +2,9 @@
 
 ## Quickstart
 
-For quick-starting the services, run `start.bat`. This will build and run the Docker images for the _client_ and _server_ using a tool named docker-compose.
+For quick-starting the services, run `start.bat`. This will build and run the Docker images for the _client_ and _server_ using a tool named [docker-compose](https://docs.docker.com/compose/). You will need [Docker](https://www.docker.com/get-started) installed and running on your machine.
 
-The website (client service) will be available atm [localhost:5000](http://localhost:5000), and the API (server service) will be available at [localhost:5001](http://localhost:5001).
+The website (client service) will be available at [localhost:5000](http://localhost:5000), and the API (server service) will be available at [localhost:5001](http://localhost:5001).
 
 A list of all the endpoints available by the API can be seen at: http://localhost:5001/swagger-ui.html
 
