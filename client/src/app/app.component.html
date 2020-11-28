@@ -7,7 +7,7 @@
                 <label for="description">Problem Description</label>
                 <textarea class="form-control mb-4" formControlName="description" rows="2"></textarea>
                 <app-variable-list [parent]="form"></app-variable-list>
-                <app-objective-list ></app-objective-list>
+                <app-objective-list [parent]="form"></app-objective-list>
                 <button type="submit" class="btn btn-dark" >Search !</button>
 
                 <pre>{{form.value | json}}</pre>

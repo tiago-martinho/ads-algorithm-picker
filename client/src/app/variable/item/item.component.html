@@ -1,7 +1,7 @@
-<li class="list-group-item mb-2" [formGroup]="parentForm">
+<li class="list-group-item mb-2" [formGroup]="parent">
     <div class="row">
         <div class="col-md-11">
-                <input name="name" type="text" formControlName="name" value="{{name}}" class="col-md-4 mr-3"/>
+                <input name="name" type="text" formControlName="name" class="col-md-4 mr-3"/>
                 <span *ngIf="selectedOption == options.Double" >
                     <input name="from" formControlName="lowerLimit" class="col-md-2 mr-3" type="number" value="-1.0" step="0.01"/>
                     <input name="to"  formControlName="upperLimit" class="col-md-2 " type="number" value="1.0" step="0.01"/>

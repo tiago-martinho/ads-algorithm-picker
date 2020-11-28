@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,12 +8,13 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./item.component.scss']
 })
 export class ObjectiveItemComponent implements OnInit {
-  @Input('name') name: string; // tslint:disable-line:no-input-rename
   @Output() removed = new EventEmitter<string>();
 
   faTrash=faTrash;
   public options = ObjectiveOptions;
   selectedOption =  ObjectiveOptions.Minimize
+
+  @Input() parent: FormGroup;
 
 
   constructor() { }
