@@ -4,21 +4,21 @@
             <input name="name" type="text" formControlName="name" placeholder="Name" />
         </div>
 
-        <div class="col-2" *ngIf="selectedOption == options.Double">
+        <div class="col-2" *ngIf="selectedOption == options.DOUBLE">
             <input name="from" type="number" formControlName="lowerLimit" placeholder="From" step="0.01" />
         </div>
-        <div class="col-2" *ngIf="selectedOption == options.Double">
+        <div class="col-2" *ngIf="selectedOption == options.DOUBLE">
             <input name="to" type="number" formControlName="upperLimit" placeholder="To" step="0.01" />
         </div>
 
-        <div class="col-2" *ngIf="selectedOption == options.Integer">
+        <div class="col-2" *ngIf="selectedOption == options.INTEGER">
             <input name="from" type="number" formControlName="lowerLimit" placeholder="From" />
         </div>
-        <div class="col-2" *ngIf="selectedOption == options.Integer">
+        <div class="col-2" *ngIf="selectedOption == options.INTEGER">
             <input name="to" type="number" formControlName="upperLimit" placeholder="To" />
         </div>
 
-        <div class="col-1" span *ngIf="selectedOption == options.Binary">
+        <div class="col-1" span *ngIf="selectedOption == options.BINARY">
             <input name="from" type="checkbox" />
         </div>
 

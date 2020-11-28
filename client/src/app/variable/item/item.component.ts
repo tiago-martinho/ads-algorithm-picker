@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-variable-item',
@@ -33,8 +33,8 @@ export class VariableItemComponent implements OnInit {
 
 
 export enum TypeOptions {
-  Double = 'Double',
-  Binary = 'Binary',
-  Integer = 'Integer',
+  DOUBLE = 'DOUBLE',
+  BINARY = 'BINARY',
+  INTEGER = 'INTEGER',
 }
 

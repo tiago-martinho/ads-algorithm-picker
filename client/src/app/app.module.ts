@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -7,8 +6,9 @@ import { VariableItemComponent } from './variable/item/item.component';
 import { VariableListComponent } from './variable/list/list.component';
 import { ObjectiveItemComponent } from './objective/item/item.component';
 import { ObjectiveListComponent } from './objective/list/list.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'      //Import here
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -27,7 +27,6 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]

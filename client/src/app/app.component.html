@@ -25,26 +25,45 @@
             <div class="section submit-container">
                 <div>
                     <button type="submit" class="btn btn-dark">FIND SOLUTION</button>
-                    <pre>{{form.value | json}}</pre>
+                    <!--<pre>{{form.value | json}}</pre>-->
                 </div>
             </div>
         </form>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="currentStep === 'loading'">
+        <div class="sk-chase">
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+            <div class="sk-chase-dot"></div>
+        </div>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="currentStep === 'error'">
+        <div class="section error-container">
+            <div class="error-message">
+                {{error}}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-dark" (click)="goBack()">🢐 BACK</button>
+            </div>
+        </div>
     </div>
 
     <!-- Results -->
     <div *ngIf="currentStep === 'results'">
         <div class="section submit-container results-back-container">
             <div>
+                <pre>{{solution | json}}</pre>
+            </div>
+            <div>
                 <button type="submit" class="btn btn-dark" (click)="goBack()">🢐 BACK</button>
             </div>
         </div>
-
     </div>
 </div>
-
-
-<!-- public String description;
-public VariableType type;
-public List<Variable> variables;
-public List<Objective> objectives;
-public AlgorithmOptions options; -->

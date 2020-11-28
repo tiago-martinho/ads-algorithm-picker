@@ -1,19 +1,26 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { ApiService } from './http/api.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [ ApiService ],
 })
 export class AppComponent {
-
-  constructor(private fb: FormBuilder) {}
+  title = 'client';
 
   form: FormGroup;
   currentStep: string;
+  error: 'Unknown error';
+  solution: {};
 
-  title = 'client';
+  constructor(private fb: FormBuilder, private heroesService: ApiService) {}
 
   ngOnInit() {
     this.currentStep = 'form';
@@ -22,12 +29,33 @@ export class AppComponent {
     });
   }
 
-  onSubmit(form: FormGroup) {
-    this.currentStep = 'results';
-    console.log('SUBMITTED', JSON.stringify(this.form.value));
+  onSubmit(form: FormGroup): void {
+    this.currentStep = 'loading';
+
+    this.heroesService.getSolution(this.form.value)
+      .pipe(catchError(this.handleError))
+      .subscribe(
+        data => {
+          console.log('Received solution:', data);
+          this.currentStep = 'results';
+          this.solution = data;
+        },
+        error => {
+          console.error('Error fetching solution:', error);
+          this.currentStep = 'error';
+          this.error = error.message;
+        }
+      );
   }
 
-  goBack() {
+  private handleError(error: HttpErrorResponse) {
+    return throwError({
+      code: error.status,
+      message: error.error?.message ?? 'Unknown error'
+    });
+  }
+
+  goBack(): void {
     this.currentStep = 'form';
   }
 }

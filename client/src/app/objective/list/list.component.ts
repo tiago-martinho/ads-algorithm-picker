@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {ObjectiveOptions} from '../item/item.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ObjectiveOptions } from '../item/item.component';
 
 @Component({
   selector: 'app-objective-list',
@@ -21,7 +21,7 @@ export class ObjectiveListComponent implements OnInit {
 
   ngOnInit(): void {
     this.objectives = new FormArray([
-      createNewObjective('Quality', ObjectiveOptions.Maximize),
+      createNewObjective('Quality', ObjectiveOptions.MAXIMIZE),
       createNewObjective('Cost'),
     ]);
     this.parent.addControl('objectives', this.objectives);
@@ -39,7 +39,7 @@ export class ObjectiveListComponent implements OnInit {
   }
 }
 
-function createNewObjective(name, type: ObjectiveOptions = ObjectiveOptions.Minimize): FormGroup {
+function createNewObjective(name, type: ObjectiveOptions = ObjectiveOptions.MINIMIZE): FormGroup {
   return new FormGroup({
     name: new FormControl(name),
     goal: new FormControl(type),

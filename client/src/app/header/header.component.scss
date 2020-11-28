@@ -5,7 +5,10 @@ nav {
 	color: white;
 
 	.navbar-title {
+		color: white;
 		font-size: 2em;
+		text-decoration: none;
 		margin: 0.1em auto;
+		user-select: none;
 	}
 }

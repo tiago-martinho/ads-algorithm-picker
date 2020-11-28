@@ -4,7 +4,7 @@
     <div class="type-container" [formGroup]="parent">
         <label for="description" class="mr-3">Problem Type:</label>
         <select id="description" name="type" formControlName="type" [(ngModel)]="selectedOption">
-            <option *ngFor="let option of options | keyvalue" [ngValue]="option.value" >{{option.value}}</option>
+            <option *ngFor="let option of options | keyvalue" [ngValue]="option.value">{{getTypeName(option.value)}}</option>
         </select>
     </div>
 

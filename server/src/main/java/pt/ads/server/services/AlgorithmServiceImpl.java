@@ -53,7 +53,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		fillDefaults(inputs);
 
     	if (inputs.objectives.isEmpty())
-    		throw new AlgorithmInputsException("You must specify at least one objective");
+    		throw new AlgorithmInputsException("You must specify at least one objective!");
 
 		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.objectives);
 		log.debug("Problem: {}", problem);
@@ -148,11 +148,14 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 				// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
 
 				return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(algorithm, results));
-			} catch (Exception ignored) { }
+			} catch (Exception e) {
+				log.info("Error executing algorithm {}: {}", algorithm.getClass().getSimpleName(), e.getMessage());
+			}
 		}
 
 		// Failed executing all algorithms
-		log.warn("Unable to execute all instances of the algorithms: {}", experiment.algorithms);
+		List<String> algorithmNames = experiment.algorithms.stream().map(Algorithm::getClass).map(Class::getSimpleName).collect(Collectors.toList());
+		log.warn("Unable to execute all instances of the algorithms: {}", algorithmNames);
 		return new AlgorithmListResults<>(inputs, experiment.problem, null);
 	}
 
