@@ -1,24 +1,29 @@
-<li class="list-group-item mb-2" [formGroup]="parent">
+<li class="list-group-item container" [formGroup]="parent">
     <div class="row">
-        <div class="col-md-11">
-                <input name="name" type="text" formControlName="name" class="col-md-4 mr-3"/>
-                <span *ngIf="selectedOption == options.Double" >
-                    <input name="from" formControlName="lowerLimit" class="col-md-2 mr-3" type="number" value="-1.0" step="0.01"/>
-                    <input name="to"  formControlName="upperLimit" class="col-md-2 " type="number" value="1.0" step="0.01"/>
-                </span>
-                
-                <span *ngIf="selectedOption == options.Integer">
-                    <input name="from" formControlName="lowerLimit" class="col-md-2 mr-3" type="number" value="-10" />
-                    <input name="to"   formControlName="upperLimit"  class="col-md-2 " type="number" value="10" />
-                </span>
+        <div class="col-4">
+            <input name="name" type="text" formControlName="name" placeholder="Name" />
+        </div>
 
-                <span *ngIf="selectedOption == options.Binary">
-                    <input name="from" class="col-md-2 mr-3" type="checkbox" value="-10" />
-                </span>
-        </div>    
-        <div class="col-md-1">
-             <fa-icon (click)="removeSelf()" [icon]="faTrash" class="float-right " style="color:red" size="lg" ></fa-icon>
+        <div class="col-2" *ngIf="selectedOption == options.Double">
+            <input name="from" type="number" formControlName="lowerLimit" placeholder="From" step="0.01" />
+        </div>
+        <div class="col-2" *ngIf="selectedOption == options.Double">
+            <input name="to" type="number" formControlName="upperLimit" placeholder="To" step="0.01" />
+        </div>
+
+        <div class="col-2" *ngIf="selectedOption == options.Integer">
+            <input name="from" type="number" formControlName="lowerLimit" placeholder="From" />
+        </div>
+        <div class="col-2" *ngIf="selectedOption == options.Integer">
+            <input name="to" type="number" formControlName="upperLimit" placeholder="To" />
+        </div>
+
+        <div class="col-1" span *ngIf="selectedOption == options.Binary">
+            <input name="from" type="checkbox" />
+        </div>
+
+        <div class="col-1">
+            <fa-icon (click)="removeSelf()" [icon]="iconTrash" class="icon-remove" size="lg" title="Remove variable"></fa-icon>
         </div>
     </div>
-
 </li>

@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@import "colors";
+
+
+body {
+	background-color: black;
+	color: white;
+	font-family: 'Open Sans', 'Segoe UI', sans-serif;
+}
+
+.section {
+	background-color: black;
+	border-top: 0.5em solid $primary-light;
+
+	&:nth-child(1),
+	&:nth-last-child(1) {
+		border-top: none;
+	}
+
+	&:nth-child(even) {
+		//background-color: $primary-darker;
+	}
+
+	> *,
+	> * > div {
+		margin: 0 auto; // center
+		max-width: 600px;
+	}
+}
+
+
+.icon-add {
+	cursor: pointer;
+	color: #fcfdff;
+	transition: all 100ms ease-out;
+
+	&:hover {
+		color: #cfd6e6;
+	}
+}
+
+.icon-remove {
+	cursor: pointer;
+	color: $red;
+	transition: all 100ms ease-out;
+
+	&:hover {
+		color: $red-dark;
+	}
+}
+
+.list-group-item {
+	padding-left: 2rem;
+	padding-right: 2rem;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, .3);
+
+	select {
+		height: 30px;
+	}
+
+	.ng-fa-icon {
+		line-height: 30px;
+		margin: 0 5px;
+	}
+}

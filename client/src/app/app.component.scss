@@ -1,0 +1,32 @@
+@import "../colors";
+
+.app-container {
+	.description-container {
+		padding: 2rem;
+
+		textarea {
+			margin-bottom: 0;
+		}
+	}
+
+	.submit-container {
+		button {
+			display: block;
+			margin: 0 auto;
+			font-size: 1.5em;
+			background-color: $primary-light;
+			border-color: $primary-light;
+		}
+
+		pre {
+			margin: 2em;
+			color: white;
+		}
+	}
+
+	.results-back-container {
+		padding-top: 2rem;
+	}
+}
+
+

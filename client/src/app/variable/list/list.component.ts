@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { TypeOptions } from '../item/item.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {TypeOptions} from '../item/item.component';
 
 @Component({
   selector: 'app-variable-list',
@@ -9,47 +9,55 @@ import { TypeOptions } from '../item/item.component';
   styleUrls: ['./list.component.scss']
 })
 export class VariableListComponent implements OnInit {
-  faPlus = faPlus
+  iconPlus = faPlus;
 
   @Input() parent: FormGroup;
 
   variables: FormArray;
 
   public options = TypeOptions;
-  selectedOption =  TypeOptions.Integer
+  selectedOption = TypeOptions.Integer;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.variables = new FormArray([]);
-    this.variables.push(createNewVariable('Grain quality index'))
-    this.variables.push(createNewVariable('Grain quality index'))
-    this.parent.addControl("type", new FormControl(this.selectedOption));
-    this.parent.addControl("variables", this.variables);
+    this.selectedOption = TypeOptions.Integer;
+    this.variables = new FormArray([
+      createNewVariable('Grain quality index', this.selectedOption),
+      createNewVariable('Grain cost', this.selectedOption)
+    ]);
 
+    this.parent.addControl('type', new FormControl(this.selectedOption));
+    this.parent.addControl('variables', this.variables);
   }
 
   addVariable(): void {
     console.log('Adding new variable');
-    this.variables.push(createNewVariable())
+    this.variables.push(createNewVariable(null, this.selectedOption));
   }
 
   removeVariable(index: number): void {
     console.log('Removing variable at index:', index);
-    this.variables.removeAt(index)
+    this.variables.removeAt(index);
   }
-
 }
 
-function createNewVariable(name= 'value'){
+function createNewVariable(name, type): FormGroup {
+  const val = getTypeValue(type);
   return new FormGroup({
     name: new FormControl(name),
-    lowerLimit: new FormControl(-0.1),
-    upperLimit: new FormControl(0.1),
+    lowerLimit: new FormControl(val ? -val : null),
+    upperLimit: new FormControl(val),
   });
 }
 
-
-
-
+function getTypeValue(type: TypeOptions): number {
+  if (type === TypeOptions.Integer) {
+    return 10;
+  } else if (type === TypeOptions.Double) {
+    return 0.5;
+  } else {
+    return null;
+  }
+}

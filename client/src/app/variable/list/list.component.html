@@ -1,14 +1,18 @@
-<p>Input Variables</p>
+<div class="variables-container">
+    <h4 class="header">Input Variables</h4>
 
-<ul class="list-group mb-2" [formGroup]="parent">
-    <span>
-        <label for="description" class ="mr-3">Problem Type: </label>
-        <select name="type" formControlName="type"  [(ngModel)]="selectedOption" class="col-md-2 mr-3">
+    <div class="type-container" [formGroup]="parent">
+        <label for="description" class="mr-3">Problem Type:</label>
+        <select id="description" name="type" formControlName="type" [(ngModel)]="selectedOption">
             <option *ngFor="let option of options | keyvalue" [ngValue]="option.value" >{{option.value}}</option>
         </select>
-    </span>
-    <app-variable-item *ngFor="let item of variables.controls; index as i;"  [parent]="variables.controls[i]" [selectedOption]="selectedOption" (removed)="removeVariable(i)"></app-variable-item>
-</ul>
+    </div>
 
-<fa-icon [icon]="faPlus" class="d-flex justify-content-center" style="color:black;" size="2x" (click)="addVariable()" ></fa-icon>
+    <ul class="list-group" [formGroup]="parent">
+        <app-variable-item *ngFor="let item of variables.controls; index as i;"  [parent]="variables.controls[i]" [selectedOption]="selectedOption" (removed)="removeVariable(i)"></app-variable-item>
+    </ul>
 
+    <div class="d-flex justify-content-center">
+        <fa-icon [icon]="iconPlus" class="icon-add" size="2x" (click)="addVariable()" title="Add variable"></fa-icon>
+    </div>
+</div>

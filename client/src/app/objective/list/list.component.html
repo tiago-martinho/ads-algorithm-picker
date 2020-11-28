@@ -1,8 +1,11 @@
-<p>Output Objectives</p>
+<div class="objectives-container">
+    <h4 class="header">Output Objectives</h4>
 
-<ul class="list-group mb-2" [formGroup]="parent">
-    <app-objective-item *ngFor="let item of objectives.controls; index as i;"  [parent]="objectives.controls[i]" (removed)="removeObjective(i)"></app-objective-item>
-</ul>
+    <ul class="list-group mb-2" [formGroup]="parent">
+        <app-objective-item *ngFor="let item of objectives.controls; index as i;"  [parent]="objectives.controls[i]" (removed)="removeObjective(i)"></app-objective-item>
+    </ul>
 
-<fa-icon [icon]="faPlus" class="d-flex justify-content-center" style="color:black;" size="2x" (click)="addObjective()" ></fa-icon>
-
+    <div class="d-flex justify-content-center">
+        <fa-icon [icon]="iconPlus" class="icon-add" size="2x" (click)="addObjective()" title="Add objective"></fa-icon>
+    </div>
+</div>

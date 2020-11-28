@@ -1,0 +1,11 @@
+@import "../../colors";
+
+nav {
+	background-color: $primary; // older: #f8f9fa
+	color: white;
+
+	.navbar-title {
+		font-size: 2em;
+		margin: 0.1em auto;
+	}
+}

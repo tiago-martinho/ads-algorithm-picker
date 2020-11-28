@@ -1,14 +1,17 @@
-<li class="list-group-item mb-2" [formGroup]="parent">
+<li class="list-group-item container" [formGroup]="parent">
     <div class="row">
-        <div class="col-md-11">
-            <input name="name" type="text"  formControlName="name" class="col-6 mr-3" />
+        <div class="col-4 mr-2">
+            <input name="name" type="text" formControlName="name" placeholder="Name" />
+        </div>
 
-            <select name="type"  formControlName="goal" [(ngModel)]="selectedOption" class="col-3 mr-2"  >
-                <option *ngFor="let option of options | keyvalue" [ngValue]="option.value" >{{option.value}}</option>
+        <div class="col-2 mr-2">
+            <select name="type" formControlName="goal" [(ngModel)]="selectedOption">
+                <option *ngFor="let option of options | keyvalue" [ngValue]="option.value">{{option.value}}</option>
             </select>
-        </div>    
-        <div class="col-md-1">
-            <fa-icon (click)="removeSelf()" [icon]="faTrash" class="float-right " style="color:red" size="lg" ></fa-icon>
+        </div>
+
+        <div class="col-1">
+            <fa-icon (click)="removeSelf()" [icon]="iconTrash" class="icon-remove" size="lg" title="Remove objective"></fa-icon>
         </div>
     </div>
 </li>

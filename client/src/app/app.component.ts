@@ -8,21 +8,26 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class AppComponent {
 
+  constructor(private fb: FormBuilder) {}
+
   form: FormGroup;
-
-  constructor (private fb: FormBuilder) {}
-
-  ngOnInit() {
-
-    this.form = this.fb.group({
-      description: '',
-
-    })
- }
-
- onSubmit(form: FormGroup){
-  console.log(JSON.stringify(this.form.value));
-}
+  currentStep: string;
 
   title = 'client';
+
+  ngOnInit() {
+    this.currentStep = 'form';
+    this.form = this.fb.group({
+      description: '',
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+    this.currentStep = 'results';
+    console.log('SUBMITTED', JSON.stringify(this.form.value));
+  }
+
+  goBack() {
+    this.currentStep = 'form';
+  }
 }

@@ -1,23 +1,44 @@
-<app-header ></app-header>
-<div class="container-fluid ">
-    <div class="row mt-4">
-        <div class="col-sm">
-            <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-                <h1 class="d-flex justify-content-center"> Problem </h1>
-                <label for="description">Problem Description</label>
-                <textarea class="form-control mb-4" formControlName="description" rows="2"></textarea>
+<app-header></app-header>
+<div class="app-container">
+    <!-- Form -->
+    <div class="form" *ngIf="currentStep === 'form'">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+            <!-- Description -->
+            <div class="section">
+                <div class="description-container">
+                    <h4><label for="description">Problem Description</label></h4>
+                    <textarea class="form-control" id="description" formControlName="description" rows="2"></textarea>
+                </div>
+            </div>
+
+            <!-- Variables -->
+            <div class="section">
                 <app-variable-list [parent]="form"></app-variable-list>
-                <app-objective-list [parent]="form"></app-objective-list>
-                <button type="submit" class="btn btn-dark" >Search !</button>
+            </div>
 
-                <pre>{{form.value | json}}</pre>
+            <!-- Objectives -->
+            <div class="section">
+                <app-objective-list class="section" [parent]="form"></app-objective-list>
+            </div>
 
-            </form>
+            <!-- Submit -->
+            <div class="section submit-container">
+                <div>
+                    <button type="submit" class="btn btn-dark">FIND SOLUTION</button>
+                    <pre>{{form.value | json}}</pre>
+                </div>
+            </div>
+        </form>
+    </div>
 
+    <!-- Results -->
+    <div *ngIf="currentStep === 'results'">
+        <div class="section submit-container results-back-container">
+            <div>
+                <button type="submit" class="btn btn-dark" (click)="goBack()">🢐 BACK</button>
+            </div>
         </div>
-        <div class="col-sm">
-            <h1 class="d-flex justify-content-center"> Results! </h1>
-        </div>
+
     </div>
 </div>
 

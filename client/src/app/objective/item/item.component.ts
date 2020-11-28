@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-objective-item',
@@ -8,16 +8,17 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./item.component.scss']
 })
 export class ObjectiveItemComponent implements OnInit {
-  @Output() removed = new EventEmitter<string>();
+  iconTrash = faTrash;
 
-  faTrash=faTrash;
   public options = ObjectiveOptions;
-  selectedOption =  ObjectiveOptions.Minimize
+  selectedOption = ObjectiveOptions.Minimize;
 
   @Input() parent: FormGroup;
+  @Output() removed = new EventEmitter<string>();
 
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
@@ -25,11 +26,10 @@ export class ObjectiveItemComponent implements OnInit {
   removeSelf(): void {
     this.removed.emit();
   }
-
 }
 
 export enum ObjectiveOptions {
-	Minimize = "Minimize" ,
-	Maximize = "Maximize",
+  Minimize = 'Minimize',
+  Maximize = 'Maximize',
 }
 

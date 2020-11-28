@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { ObjectiveOptions } from '../item/item.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {ObjectiveOptions} from '../item/item.component';
 
 @Component({
   selector: 'app-objective-list',
@@ -9,8 +9,7 @@ import { ObjectiveOptions } from '../item/item.component';
   styleUrls: ['./list.component.scss']
 })
 export class ObjectiveListComponent implements OnInit {
-  items: string[];
-  faPlus = faPlus
+  iconPlus = faPlus;
 
   @Input() parent: FormGroup;
 
@@ -21,28 +20,28 @@ export class ObjectiveListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.objectives = new FormArray([]);
-    this.objectives.push(createNewObjective('Cost'))
-    this.objectives.push(createNewObjective('Quality'))
-    this.parent.addControl("objectives", this.objectives);
+    this.objectives = new FormArray([
+      createNewObjective('Quality', ObjectiveOptions.Maximize),
+      createNewObjective('Cost'),
+    ]);
+    this.parent.addControl('objectives', this.objectives);
   }
 
   addObjective(): void {
     console.log('Adding new objective');
-    this.objectives.push(createNewObjective())
+    this.objectives.push(createNewObjective(null));
 
   }
 
   removeObjective(index: number): void {
     console.log('Removing objective at index:', index);
-    this.objectives.removeAt(index)
+    this.objectives.removeAt(index);
   }
 }
 
-function createNewObjective(name= 'objective'){
+function createNewObjective(name, type: ObjectiveOptions = ObjectiveOptions.Minimize): FormGroup {
   return new FormGroup({
     name: new FormControl(name),
-    goal: new FormControl(ObjectiveOptions.Minimize),
+    goal: new FormControl(type),
   });
 }
-
