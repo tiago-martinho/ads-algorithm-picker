@@ -1,18 +1,19 @@
 <div class="variables-container">
-    <h4 class="header">Input Variables</h4>
+    <h4 class="header mb-4">Input Variables</h4>
 
-    <div class="type-container" [formGroup]="parent">
+    <div class="type-container mb-4" [formGroup]="parent">
         <label for="description" class="mr-3">Problem Type:</label>
         <select id="description" name="type" formControlName="type" [(ngModel)]="selectedOption">
             <option *ngFor="let option of options | keyvalue" [ngValue]="option.value">{{getTypeName(option.value)}}</option>
         </select>
     </div>
 
-    <ul class="list-group" [formGroup]="parent">
+    <ul class="list-group mb-4" [formGroup]="parent">
         <app-variable-item *ngFor="let item of variables.controls; index as i;"  [parent]="variables.controls[i]" [selectedOption]="selectedOption" (removed)="removeVariable(i)"></app-variable-item>
     </ul>
 
+
     <div class="d-flex justify-content-center">
-        <fa-icon [icon]="iconPlus" class="icon-add" size="2x" (click)="addVariable()" title="Add variable"></fa-icon>
+        <button type="button" class="btn btn-outline-secondary"><fa-icon [icon]="iconPlus" class="icon-add" size="2x" (click)="addVariable()" title="Add variable"></fa-icon></button>
     </div>
 </div>

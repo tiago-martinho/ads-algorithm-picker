@@ -20,7 +20,7 @@ export class AppComponent {
   error: 'Unknown error';
   solution: {};
 
-  constructor(private fb: FormBuilder, private heroesService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit() {
     this.currentStep = 'form';
@@ -32,7 +32,7 @@ export class AppComponent {
   onSubmit(form: FormGroup): void {
     this.currentStep = 'loading';
 
-    this.heroesService.getSolution(this.form.value)
+    this.apiService.getSolution(this.form.value)
       .pipe(catchError(this.handleError))
       .subscribe(
         data => {

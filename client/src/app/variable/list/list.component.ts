@@ -22,8 +22,6 @@ export class VariableListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedOption = TypeOptions.INTEGER;
-
     const val = getTypeValue(this.selectedOption);
     this.variables = new FormArray([
       createNewVariable('Grain quality index', val ? -val : null, val),

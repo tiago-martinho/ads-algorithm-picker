@@ -1,10 +1,10 @@
 <li class="list-group-item container" [formGroup]="parentControl">
     <div class="row">
-        <div class="col-4 mr-2">
+        <div class="col-4 mr-4">
             <input name="name" type="text" formControlName="name" placeholder="Name" />
         </div>
 
-        <div class="col-2 mr-2">
+        <div class="col-2 mr-4">
             <select name="type" formControlName="goal" [(ngModel)]="selectedOption">
                 <option *ngFor="let option of options | keyvalue" [ngValue]="option.value">{{getGoalName(option.value)}}</option>
             </select>
