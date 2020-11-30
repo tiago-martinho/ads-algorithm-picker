@@ -21,8 +21,8 @@ export class ObjectiveListComponent implements OnInit {
 
   ngOnInit(): void {
     this.objectives = new FormArray([
-      createNewObjective('Quality', ObjectiveOptions.MAXIMIZE),
       createNewObjective('Cost'),
+      createNewObjective('Quality', ObjectiveOptions.MAXIMIZE),
     ]);
     this.parent.addControl('objectives', this.objectives);
   }
