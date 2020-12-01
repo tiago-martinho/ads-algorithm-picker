@@ -1,11 +1,12 @@
 @import "../../colors";
+@import "../../helper";
 
 nav {
-	background-color: $primary; // older: #f8f9fa
-	color: white;
+	background-color: $primary;
 
 	.navbar-title {
-		color: white;
+		//color: choose-contrast-color($primary);
+		color: $bg;
 		font-size: 2em;
 		text-decoration: none;
 		margin: 0.1em auto;

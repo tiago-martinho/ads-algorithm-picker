@@ -2,22 +2,18 @@
 
 
 body {
-	background-color: black;
-	color: white;
+	background-color: $bg;
+	color: $fg;
 	font-family: 'Open Sans', 'Segoe UI', sans-serif;
 }
 
 .section {
-	background-color: black;
 	border-top: 0.5em solid $primary-light;
 
 	&:nth-child(1),
+	&:nth-child(2), // because of the 'json' element being at the top
 	&:nth-last-child(1) {
 		border-top: none;
-	}
-
-	&:nth-child(even) {
-		//background-color: $primary-darker;
 	}
 
 	> *,
@@ -29,13 +25,6 @@ body {
 
 
 .icon-add {
-	cursor: pointer;
-	color: #fcfdff;
-	transition: all 100ms ease-out;
-
-	&:hover {
-		color: #cfd6e6;
-	}
 }
 
 .icon-remove {

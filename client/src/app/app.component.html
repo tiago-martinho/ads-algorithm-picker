@@ -3,6 +3,11 @@
     <!-- Form -->
     <div class="form" *ngIf="currentStep === 'form'">
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+            <!-- JSON -->
+            <div class="json">
+                <pre>{{form.value | json}}</pre>
+            </div>
+
             <!-- Description -->
             <div class="section">
                 <div class="description-container">
@@ -24,8 +29,7 @@
             <!-- Submit -->
             <div class="section submit-container">
                 <div>
-                    <button type="submit" class="btn btn-dark">FIND SOLUTION</button>
-                    <!--<pre>{{form.value | json}}</pre>-->
+                    <button type="submit" class="btn">FIND SOLUTION</button>
                 </div>
             </div>
         </form>

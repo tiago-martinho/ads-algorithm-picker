@@ -1,4 +1,5 @@
 @import "../colors";
+@import "../helper";
 
 .app-container {
 	.description-container {
@@ -16,13 +17,25 @@
 			display: block;
 			margin: 0 auto;
 			font-size: 1.5em;
-			background-color: $primary-light;
-			border-color: $primary-light;
+			background-color: $primary;
+			border-color: $primary;
+			//color: choose-contrast-color($primary);
+			color: $bg;
 		}
+	}
+
+	.json {
+		position: -webkit-sticky;
+		position: sticky;
+		float: right;
+		top: 0;
+		width: 30em;
+		height: 100%;
+		color: $fg;
+		background: $bg;
 
 		pre {
 			margin: 2rem;
-			color: white;
 		}
 	}
 
@@ -65,7 +78,7 @@
 		display: block;
 		width: 25%;
 		height: 25%;
-		background-color: #fff;
+		background-color: $primary;
 		border-radius: 100%;
 		animation: sk-chase-dot-before 2.0s infinite ease-in-out both;
 	}
