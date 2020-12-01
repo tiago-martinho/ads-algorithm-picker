@@ -1,6 +1,4 @@
-package pt.ads.server.dto;
-
-import java.util.Collection;
+package pt.ads.server.model;
 
 import lombok.Data;
 import org.uma.jmetal.problem.Problem;

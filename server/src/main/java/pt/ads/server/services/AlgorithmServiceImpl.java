@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import org.uma.jmetal.solution.Solution;
 import pt.ads.server.algorithm.AlgorithmDefaults;
 import pt.ads.server.algorithm.AlgorithmFactory;
 import pt.ads.server.algorithm.ProblemFactory;
-import pt.ads.server.dto.*;
+import pt.ads.server.model.*;
 import pt.ads.server.exceptions.AlgorithmException;
 import pt.ads.server.exceptions.AlgorithmExecutionException;
 import pt.ads.server.exceptions.AlgorithmInputsException;
@@ -50,16 +51,17 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 
 	@Override
 	public <T extends Solution<?>> Experiment<T, List<T>> getAlgorithms(AlgorithmInputs inputs) throws AlgorithmException {
+		validateInputs(inputs);
 		fillDefaults(inputs);
 
     	if (inputs.objectives.isEmpty())
     		throw new AlgorithmInputsException("You must specify at least one objective!");
 
-		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.objectives);
-		log.debug("Problem: {}", problem);
-
 		Collection<String> algorithmNames = findBestAlgorithms(inputs);
 		log.debug("Possible algorithms: {}", algorithmNames);
+
+		Problem<T> problem = ProblemFactory.getProblem(inputs.type, inputs.variables, inputs.objectives);
+		log.debug("Problem: {}", problem);
 
 		List<Algorithm<List<T>>> algorithms = initializeAlgorithms(algorithmNames, inputs.options, problem);
 
@@ -97,7 +99,6 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 	private Collection<String> findBestAlgorithms(AlgorithmInputs inputs) throws AlgorithmException {
 		try {
 			List<String> algorithmNames = findAlgorithmsOWL(inputs);
-			log.debug("Found suitable algorithms: " + algorithmNames);
 
 			if (algorithmNames.isEmpty())
 				throw new AlgorithmExecutionException("No appropriate algorithm found based on your input");
@@ -141,6 +142,8 @@ public class AlgorithmServiceImpl implements AlgorithmService {
     	// Execute the algorithms one by one until once succeeds, and then fetch it's results
 		for (Algorithm<List<T>> algorithm : experiment.algorithms) {
 			try {
+				log.trace("Executing algorithm: {}", algorithm.getClass().getSimpleName());
+
 				algorithm.run();
 				List<T> results = algorithm.getResult();
 
@@ -157,6 +160,22 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 		List<String> algorithmNames = experiment.algorithms.stream().map(Algorithm::getClass).map(Class::getSimpleName).collect(Collectors.toList());
 		log.warn("Unable to execute all instances of the algorithms: {}", algorithmNames);
 		return new AlgorithmListResults<>(inputs, experiment.problem, null);
+	}
+
+	private void validateInputs(AlgorithmInputs inputs) {
+		if (inputs.type == VariableType.INTEGER || inputs.type == VariableType.DOUBLE) {
+			for (Variable variable : inputs.variables) {
+				Optional<String> name = Optional.ofNullable(variable.name).map(n -> "the variable '" + n + '\'');
+
+				if (variable.lowerLimit == null) {
+					throw new AlgorithmInputsException("You need to specify the lower limit for " + name.orElse("all the variables") + "!");
+				} else if (variable.upperLimit == null) {
+					throw new AlgorithmInputsException("You need to specify the upper limit for " + name.orElse("all the variables") + "!");
+				} else if (variable.lowerLimit > variable.upperLimit) {
+					throw new AlgorithmInputsException("Your lower limit is higher than the high limit on " + name.orElse("one of the variables") + "!");
+				}
+			}
+		}
 	}
 
 	private void fillDefaults(@NonNull AlgorithmInputs inputs) {

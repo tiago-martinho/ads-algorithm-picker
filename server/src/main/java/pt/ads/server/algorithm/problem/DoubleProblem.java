@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import org.uma.jmetal.problem.impl.AbstractDoubleProblem;
 import org.uma.jmetal.solution.DoubleSolution;
-import pt.ads.server.dto.Objective;
-import pt.ads.server.dto.ObjectiveGoal;
-import pt.ads.server.dto.Variable;
+import pt.ads.server.model.Objective;
+import pt.ads.server.model.ObjectiveGoal;
+import pt.ads.server.model.Variable;
 
 public class DoubleProblem extends AbstractDoubleProblem implements Problem<DoubleSolution> {
 

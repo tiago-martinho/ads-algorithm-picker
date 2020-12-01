@@ -58,7 +58,7 @@ import org.uma.jmetal.util.comparator.RankingAndCrowdingDistanceComparator;
 import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 import org.uma.jmetal.util.neighborhood.impl.C9;
-import pt.ads.server.dto.AlgorithmOptions;
+import pt.ads.server.model.AlgorithmOptions;
 
 @Slf4j
 public class AlgorithmFactory {
@@ -103,7 +103,6 @@ public class AlgorithmFactory {
 					Class<?>[] paramTypes = constructor.getParameterTypes();
 					Object[] params = new Object[paramTypes.length];
 
-					// TODO
 					Map<Class, Object> typeResolver = new HashMap<>();
 					typeResolver.put(int.class, 10);
 					typeResolver.put(Integer.class, 10);
@@ -126,7 +125,6 @@ public class AlgorithmFactory {
 
 					if (o instanceof AlgorithmBuilder) {
 						AlgorithmBuilder<?> builder = (AlgorithmBuilder<?>) o;
-						// TODO: call methods for: population, crossover, mutation, selection, etc
 						return (Algorithm<List<T>>) builder.build();
 					} else if (o instanceof Algorithm) {
 						return (Algorithm<List<T>>) o;

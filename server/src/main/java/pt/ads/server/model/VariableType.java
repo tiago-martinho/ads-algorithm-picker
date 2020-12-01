@@ -1,4 +1,4 @@
-package pt.ads.server.dto;
+package pt.ads.server.model;
 
 public enum VariableType {
 	INTEGER, DOUBLE, BOOLEAN

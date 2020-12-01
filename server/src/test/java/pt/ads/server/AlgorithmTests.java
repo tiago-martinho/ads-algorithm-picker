@@ -13,7 +13,7 @@ import org.uma.jmetal.solution.IntegerSolution;
 import pt.ads.server.algorithm.AlgorithmFactory;
 import pt.ads.server.algorithm.ProblemFactory;
 import pt.ads.server.algorithm.problem.Problem;
-import pt.ads.server.dto.*;
+import pt.ads.server.model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

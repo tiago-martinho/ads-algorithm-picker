@@ -1,4 +1,4 @@
-package pt.ads.server.dto;
+package pt.ads.server.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Objective {
+public class Variable {
 
 	public String name;
-	public ObjectiveGoal goal;
+	public Double lowerLimit;
+	public Double upperLimit;
 
 }

@@ -10,9 +10,9 @@ import pt.ads.server.algorithm.problem.BinaryProblem;
 import pt.ads.server.algorithm.problem.DoubleProblem;
 import pt.ads.server.algorithm.problem.IntegerProblem;
 import pt.ads.server.algorithm.problem.Problem;
-import pt.ads.server.dto.Objective;
-import pt.ads.server.dto.Variable;
-import pt.ads.server.dto.VariableType;
+import pt.ads.server.model.Objective;
+import pt.ads.server.model.Variable;
+import pt.ads.server.model.VariableType;
 import pt.ads.server.exceptions.AlgorithmExecutionException;
 
 @Slf4j

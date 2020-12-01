@@ -3,9 +3,9 @@ package pt.ads.server.services;
 import java.util.List;
 
 import org.uma.jmetal.solution.Solution;
-import pt.ads.server.dto.AlgorithmInputs;
-import pt.ads.server.dto.AlgorithmListResults;
-import pt.ads.server.dto.Experiment;
+import pt.ads.server.model.AlgorithmInputs;
+import pt.ads.server.model.AlgorithmListResults;
+import pt.ads.server.model.Experiment;
 import pt.ads.server.exceptions.AlgorithmException;
 
 public interface AlgorithmService {

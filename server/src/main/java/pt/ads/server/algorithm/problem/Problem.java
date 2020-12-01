@@ -1,7 +1,7 @@
 package pt.ads.server.algorithm.problem;
 
 import org.uma.jmetal.solution.Solution;
-import pt.ads.server.dto.ObjectiveGoal;
+import pt.ads.server.model.ObjectiveGoal;
 
 public interface Problem<S extends Solution<?>> extends org.uma.jmetal.problem.Problem<S> {
 
