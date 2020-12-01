@@ -5,7 +5,7 @@
         <app-objective-item *ngFor="let item of objectives.controls; index as i;" [parentControl]="objectives.controls[i]" (removed)="removeObjective(i)"></app-objective-item>
     </ul>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-4">
         <button type="button" class="btn btn-outline-secondary icon-add">
             <fa-icon [icon]="iconPlus" size="2x" (click)="addObjective()" title="Add objective"></fa-icon>
         </button>

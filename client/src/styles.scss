@@ -1,17 +1,15 @@
 @import "colors";
 
-
 body {
 	background-color: $bg;
 	color: $fg;
-	font-family: 'Open Sans', 'Segoe UI', sans-serif;
+	font-family: "Open Sans", "Segoe UI", sans-serif;
 }
 
 .section {
 	border-top: 0.5em solid $primary-light;
 
 	&:nth-child(1),
-	&:nth-child(2), // because of the 'json' element being at the top
 	&:nth-last-child(1) {
 		border-top: none;
 	}
@@ -23,13 +21,12 @@ body {
 	}
 }
 
-
 .icon-add {
 }
 
 .icon-remove {
 	cursor: pointer;
-	color: $red;
+	color: $primary;
 	transition: all 100ms ease-out;
 
 	&:hover {
@@ -42,7 +39,6 @@ body {
 	padding-right: 2rem;
 	background-color: transparent;
 	border: none;
-	border-bottom: 1px solid rgba(0, 0, 0, .3);
 
 	select {
 		height: 30px;

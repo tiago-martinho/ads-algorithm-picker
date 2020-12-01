@@ -1,26 +1,12 @@
 <li class="list-group-item container" [formGroup]="parent">
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 mr-4">
             <input name="name" type="text" formControlName="name" placeholder="Name" />
         </div>
+        
+        <input name="from"  class="col-2 mr-4" type="number" formControlName="lowerLimit" placeholder="From" />
+        <input name="to"    class="col-2" type="number" formControlName="upperLimit" placeholder="To" />
 
-        <div class="col-2" *ngIf="selectedOption == options.DOUBLE">
-            <input name="from" type="number" formControlName="lowerLimit" placeholder="From" step="0.01" />
-        </div>
-        <div class="col-2" *ngIf="selectedOption == options.DOUBLE">
-            <input name="to" type="number" formControlName="upperLimit" placeholder="To" step="0.01" />
-        </div>
-
-        <div class="col-2" *ngIf="selectedOption == options.INTEGER">
-            <input name="from" type="number" formControlName="lowerLimit" placeholder="From" />
-        </div>
-        <div class="col-2" *ngIf="selectedOption == options.INTEGER">
-            <input name="to" type="number" formControlName="upperLimit" placeholder="To" />
-        </div>
-
-        <div class="col-1" span *ngIf="selectedOption == options.BINARY">
-            <input name="from" type="checkbox" />
-        </div>
 
         <div class="col-1">
             <fa-icon (click)="removeSelf()" [icon]="iconTrash" class="icon-remove" size="lg" title="Remove variable"></fa-icon>

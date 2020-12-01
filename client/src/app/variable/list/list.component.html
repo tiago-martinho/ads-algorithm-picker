@@ -8,12 +8,12 @@
         </select>
     </div>
 
-    <ul class="list-group mb-4" [formGroup]="parent">
+    <ul class="list-group" [formGroup]="parent">
         <app-variable-item *ngFor="let item of variables.controls; index as i;"  [parent]="variables.controls[i]" [selectedOption]="selectedOption" (removed)="removeVariable(i)"></app-variable-item>
     </ul>
 
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-4">
         <button type="button" class="btn btn-outline-secondary icon-add">
             <fa-icon [icon]="iconPlus" size="2x" (click)="addVariable()" title="Add variable"></fa-icon>
         </button>

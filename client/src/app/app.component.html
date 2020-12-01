@@ -3,10 +3,8 @@
     <!-- Form -->
     <div class="form" *ngIf="currentStep === 'form'">
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-            <!-- JSON -->
-            <div class="json">
-                <pre>{{form.value | json}}</pre>
-            </div>
+            <div class="row">
+            <div class="col">
 
             <!-- Description -->
             <div class="section">
@@ -23,15 +21,23 @@
 
             <!-- Objectives -->
             <div class="section">
-                <app-objective-list class="section" [parent]="form"></app-objective-list>
+                <app-objective-list [parent]="form"></app-objective-list>
             </div>
 
             <!-- Submit -->
-            <div class="section submit-container">
+            <div class="section submit-container mt-4">
                 <div>
-                    <button type="submit" class="btn">FIND SOLUTION</button>
+                    <button type="submit" class="btn btn-block">FIND SOLUTION</button>
                 </div>
             </div>
+            </div>
+                        <!-- JSON -->
+<!-- 
+        <div class="col mt-4 text-center">
+            <pre>{{form.value | json}}</pre>
+        </div> -->
+    </div>
+
         </form>
     </div>
 
