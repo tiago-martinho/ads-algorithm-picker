@@ -73,24 +73,12 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 
 	@NonNull
 	private <T extends Solution<?>> List<Algorithm<List<T>>> initializeAlgorithms(Collection<String> algorithmNames, AlgorithmOptions options, Problem<T> problem) {
-		List<Algorithm<List<T>>> algorithms = new ArrayList<>(0);
+		List<Algorithm<List<T>>> algorithms = new ArrayList<>(algorithmNames.size());
 
     	for (String name : algorithmNames) {
-			try {
-				Algorithm<List<T>> algorithmReflection = AlgorithmFactory.getAlgorithmReflection(name, options, problem);
-				if (algorithmReflection != null)
-					algorithms.add(algorithmReflection);
-			} catch (Exception e) {
-				log.warn("Unable to instantiate algorithm though reflection: {}", name, e);
-			}
-
-			try {
-				Algorithm<List<T>> algorithmFallback = AlgorithmFactory.getAlgorithmFallback(name, options, problem);
-				if (algorithmFallback != null)
-					algorithms.add(algorithmFallback);
-			} catch (Exception e) {
-				log.warn("Unable to instantiate algorithm though fallback: {}", name, e);
-			}
+			Algorithm<List<T>> algorithm = AlgorithmFactory.getAlgorithm(name, options, problem);
+			if (algorithm != null)
+				algorithms.add(algorithm);
 		}
 
 		return algorithms;
@@ -150,6 +138,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 				// TODO: Flip objective if it should NOT be minimized (use this: experiment.problem.minimizeObjective(i))
 				// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
 
+				log.trace("Algorithm {} generated {} solutions", algorithm.getClass().getSimpleName(), results.size());
 				return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(algorithm, results));
 			} catch (Exception e) {
 				log.info("Error executing algorithm {}: {}", algorithm.getClass().getSimpleName(), e.getMessage());
