@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { ApiService } from './http/api.service';
@@ -10,37 +10,41 @@ import { ApiService } from './http/api.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [ ApiService ],
+  providers: [ApiService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'client';
 
   form: FormGroup;
   currentStep: string;
   error: 'Unknown error';
   solution: {};
+  isCollapsed = true;
+  showAlgorithm = false;
+  showSolutions = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.currentStep = 'form';
     this.form = this.fb.group({
       description: '',
     });
   }
 
-  onSubmit(form: FormGroup): void {
+  onSubmit(): void {
     this.currentStep = 'loading';
 
-    this.apiService.getSolution(this.form.value)
+    this.apiService
+      .getSolution(this.form.value)
       .pipe(catchError(this.handleError))
       .subscribe(
-        data => {
+        (data) => {
           console.log('Received solution:', data);
           this.currentStep = 'results';
           this.solution = data;
         },
-        error => {
+        (error) => {
           console.error('Error fetching solution:', error);
           this.currentStep = 'error';
           this.error = error.message;
@@ -48,10 +52,23 @@ export class AppComponent {
       );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  updateCollapseState(button: string): void {
+    if (button === 'algorithm') {
+      this.showSolutions = false;
+      this.showAlgorithm = !this.showAlgorithm;
+    }
+    if (button === 'solutions') {
+      this.showSolutions = !this.showSolutions;
+      this.showAlgorithm = false;
+    }
+    this.isCollapsed =
+      !this.isCollapsed && !this.showAlgorithm && !this.showSolutions;
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
     return throwError({
       code: error.status,
-      message: error.error?.message ?? 'Unknown error'
+      message: error.error?.message ?? 'Unknown error',
     });
   }
 

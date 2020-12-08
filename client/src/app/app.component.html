@@ -4,40 +4,51 @@
     <div class="form" *ngIf="currentStep === 'form'">
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
             <div class="row">
-            <div class="col">
+                <div class="col">
+                    <!-- Description -->
+                    <div class="section">
+                        <div class="description-container">
+                            <h4>
+                                <label for="description"
+                                    >Problem Description</label
+                                >
+                            </h4>
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                formControlName="description"
+                                rows="2"
+                            ></textarea>
+                        </div>
+                    </div>
 
-            <!-- Description -->
-            <div class="section">
-                <div class="description-container">
-                    <h4><label for="description">Problem Description</label></h4>
-                    <textarea class="form-control" id="description" formControlName="description" rows="2"></textarea>
+                    <!-- Variables -->
+                    <div class="section">
+                        <app-variable-list [parent]="form"></app-variable-list>
+                    </div>
+
+                    <!-- Objectives -->
+                    <div class="section">
+                        <app-objective-list
+                            [parent]="form"
+                        ></app-objective-list>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="section submit-container mt-4">
+                        <div>
+                            <button type="submit" class="btn btn-block">
+                                FIND SOLUTION
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <!-- JSON -->
 
-            <!-- Variables -->
-            <div class="section">
-                <app-variable-list [parent]="form"></app-variable-list>
+                <!-- <div class="col mt-4 text-center">
+                    <pre>{{ form.value | json }}</pre>
+                </div> -->
             </div>
-
-            <!-- Objectives -->
-            <div class="section">
-                <app-objective-list [parent]="form"></app-objective-list>
-            </div>
-
-            <!-- Submit -->
-            <div class="section submit-container mt-4">
-                <div>
-                    <button type="submit" class="btn btn-block">FIND SOLUTION</button>
-                </div>
-            </div>
-            </div>
-                        <!-- JSON -->
-<!-- 
-        <div class="col mt-4 text-center">
-            <pre>{{form.value | json}}</pre>
-        </div> -->
-    </div>
-
         </form>
     </div>
 
@@ -57,23 +68,65 @@
     <div *ngIf="currentStep === 'error'">
         <div class="section error-container">
             <div class="error-message">
-                {{error}}
+                {{ error }}
             </div>
             <div>
-                <button type="submit" class="btn btn-dark" (click)="goBack()">🢐 BACK</button>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="goBack()"
+                >
+                    🢐 BACK
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Results -->
     <div *ngIf="currentStep === 'results'">
-        <div class="section submit-container results-back-container">
-            <div>
-                <pre>{{solution | json}}</pre>
+        <div class="section results-container">
+            <!-- <div>
+                <pre>{{ solution | json }}</pre>
+            </div> -->
+            <button
+                type="button"
+                class="btn btn-dark col-2"
+                (click)="updateCollapseState('algorithm')"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapse"
+            >
+                Algorithm
+            </button>
+            <button
+                type="button"
+                class="btn btn-dark col-2 ml-2"
+                (click)="updateCollapseState('solutions')"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapse"
+            >
+                Solutions
+            </button>
+
+            <div id="collapse" [collapse]="isCollapsed" [isAnimated]="false">
+                <div class="well well-lg card card-block card-header">
+                    <div *ngIf="showAlgorithm">
+                        <pre>
+                            {{ solution.results.algorithm | json }}
+                        </pre>
+                    </div>
+                    <div *ngIf="showSolutions">
+                        <pre>
+                            {{ solution.results.solutions | json }}
+                        </pre>
+                    </div>
+                </div>
             </div>
-            <div>
-                <button type="submit" class="btn btn-dark" (click)="goBack()">🢐 BACK</button>
-            </div>
+            <br />
+        </div>
+        <div class="submit-container">
+            <button type="submit" class="btn btn-primary" (click)="goBack()">
+                🢐 BACK
+            </button>
         </div>
     </div>
 </div>
