@@ -89,7 +89,7 @@ public class AlgorithmFactory {
 		log.info("Initializing algorithm '" + algorithmName + "' through reflection");
 
 		try {
-			final Map<Class, Object> mapper = getMapper(problem, options);
+			final Map<Class, Object> mapper = createMapper(problem, options);
 
 			List<Class<?>> classes = findClassesByName(algorithmName);
 			for (Class<?> clazz : classes) {
@@ -163,7 +163,7 @@ public class AlgorithmFactory {
 		}
 	}
 
-	private static <T extends Solution<?>> Map<Class, Object> getMapper(Problem<T> problem, AlgorithmOptions options) {
+	private static <T extends Solution<?>> Map<Class, Object> createMapper(Problem<T> problem, AlgorithmOptions options) {
 		final Map<Class, Object> mapper = new HashMap<>();
 
 		mapper.put(short.class,   Long.valueOf(DEFAULT_NUMERICAL_VALUE).shortValue());
