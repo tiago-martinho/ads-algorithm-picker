@@ -134,7 +134,7 @@
     </div>
 
     <div *ngIf="currentStep === 'fullResults'">
-        <div style="overflow: auto">
+        <div class="mt-4" style="max-height: 500px; overflow: auto">
             <pre>{{ solution | json }}</pre>
         </div>
     </div>
