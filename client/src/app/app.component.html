@@ -109,14 +109,15 @@
             <div id="collapse" [collapse]="isCollapsed" [isAnimated]="false">
                 <div class="well well-lg card card-block card-header">
                     <div *ngIf="showAlgorithm">
-                        <pre>
-                            {{ solution.results.algorithm | json }}
-                        </pre>
+                        <app-algorithm-results
+                            [algorithmResults]="solution.results.algorithm"
+                        ></app-algorithm-results
+                        >>
                     </div>
                     <div *ngIf="showSolutions">
-                        <pre>
-                            {{ solution.results.solutions | json }}
-                        </pre>
+                        <app-solution-results
+                            [solutionResults]="solution.results.solutions"
+                        ></app-solution-results>
                     </div>
                 </div>
             </div>
@@ -125,7 +126,7 @@
         <div class="d-flex justify-content-center">
             <button
                 type="button"
-                class="btn btn-dark mb-2 col-2"
+                class="btn btn-dark mb-2"
                 (click)="showFullResults()"
             >
                 Raw JSON results

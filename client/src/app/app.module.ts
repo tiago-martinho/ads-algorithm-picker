@@ -12,6 +12,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AlgorithmResultsComponent } from './algorithm-results/algorithm-results.component';
+import { SolutionResultsComponent } from './solution-results/solution-results.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     VariableListComponent,
     ObjectiveItemComponent,
     ObjectiveListComponent,
+    AlgorithmResultsComponent,
+    SolutionResultsComponent,
   ],
   imports: [
     BrowserModule,
