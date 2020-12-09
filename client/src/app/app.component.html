@@ -85,9 +85,6 @@
     <!-- Results -->
     <div *ngIf="currentStep === 'results'">
         <div class="section">
-            <!-- <div>
-                <pre>{{ solution | json }}</pre>
-            </div> -->
             <div class="d-flex justify-content-center mt-4">
                 <button
                     type="button"
@@ -126,18 +123,28 @@
             <br />
         </div>
         <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-block mb-2 col-2">
-                Full response
-            </button>
-        </div>
-        <div class="submit-container">
             <button
                 type="button"
-                class="btn btn-primary mt-2"
-                (click)="goBack()"
+                class="btn btn-dark mb-2 col-2"
+                (click)="showFullResults()"
             >
-                🢐 BACK
+                Raw JSON results
             </button>
         </div>
+    </div>
+
+    <div *ngIf="currentStep === 'fullResults'">
+        <div style="overflow: auto">
+            <pre>{{ solution | json }}</pre>
+        </div>
+    </div>
+
+    <div
+        *ngIf="currentStep === 'results' || currentStep === 'fullResults'"
+        class="submit-container"
+    >
+        <button type="button" class="btn btn-primary mt-2" (click)="goBack()">
+            🢐 BACK
+        </button>
     </div>
 </div>

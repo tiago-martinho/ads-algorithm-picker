@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
   currentStep: string;
   error: 'Unknown error';
   solution: {};
-  isCollapsed = true;
-  showAlgorithm = false;
+  isCollapsed = false;
+  showAlgorithm = true;
   showSolutions = false;
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
@@ -72,7 +72,15 @@ export class AppComponent implements OnInit {
     });
   }
 
+  showFullResults(): void {
+    this.currentStep = 'fullResults';
+  }
+
   goBack(): void {
-    this.currentStep = 'form';
+    if (this.currentStep === 'fullResults') {
+      this.currentStep = 'results';
+    } else {
+      this.currentStep = 'form';
+    }
   }
 }
