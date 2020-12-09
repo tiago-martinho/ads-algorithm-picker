@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AlgorithmResultsComponent } from './algorithm-results/algorithm-results.component';
 import { SolutionResultsComponent } from './solution-results/solution-results.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SolutionResultsComponent } from './solution-results/solution-results.co
     HttpClientModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

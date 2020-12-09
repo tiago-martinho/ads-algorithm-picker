@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Inputs } from '../models/inputs.model';
 import { Solution } from '../models/solution.model';
 
 @Component({
@@ -8,6 +9,12 @@ import { Solution } from '../models/solution.model';
 })
 export class SolutionResultsComponent implements OnInit {
   @Input() solutionResults: Solution[];
+  @Input() inputs: Inputs;
+
+  selectedSolution: Solution;
+
+  selectableValues = ['Objective', 'Variable'];
+  selectedValue: string;
 
   constructor() {}
 
