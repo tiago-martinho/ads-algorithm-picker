@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Solution } from '../models/solution.model';
 
 @Component({
   selector: 'app-solution-results',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./solution-results.component.scss'],
 })
 export class SolutionResultsComponent implements OnInit {
-  @Input() solutionResults: string;
+  @Input() solutionResults: Solution[];
 
   constructor() {}
 

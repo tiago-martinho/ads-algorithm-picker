@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AlgorithmResults } from '../models/algorithm-results.model';
 
 @Component({
   selector: 'app-algorithm-results',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./algorithm-results.component.scss'],
 })
 export class AlgorithmResultsComponent implements OnInit {
-  @Input() algorithmResults: string;
+  @Input() algorithmResults: AlgorithmResults;
 
   constructor() {}
 

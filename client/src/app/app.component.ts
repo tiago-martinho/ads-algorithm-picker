@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ApiService } from './http/api.service';
+import { ApiService } from './service/api.service';
 
 @Component({
   selector: 'app-root',
