@@ -10,6 +10,9 @@ import pt.ads.server.model.Objective;
 import pt.ads.server.model.ObjectiveGoal;
 import pt.ads.server.model.Variable;
 
+/**
+ * Represents a floating number problem - variables can have any decimal number.
+ */
 public class DoubleProblem extends AbstractDoubleProblem implements Problem<DoubleSolution> {
 
 	protected List<Double> lowerLimit;

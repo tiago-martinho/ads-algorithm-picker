@@ -58,6 +58,9 @@ import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 import org.uma.jmetal.util.neighborhood.impl.C9;
 import pt.ads.server.model.AlgorithmOptions;
 
+/**
+ * Uses a factory pattern to abstract away the instantiation of the algorithms.
+ */
 @Slf4j
 public class AlgorithmFactory {
 
@@ -67,6 +70,15 @@ public class AlgorithmFactory {
 	private static final boolean USE_FALLBACK_METHOD = true;
 
 
+	/**
+	 * Instantiates a algorithm through reflection based on a name.
+	 *
+	 * @param algorithmName the name of the algorithm
+	 * @param options the options for the algorithm
+	 * @param problem the problem type
+	 * @param <T> type solution type (double, integer, etc)
+	 * @return the algorithm, or {@code null} is none found
+	 */
 	@Nullable
 	public static <T extends Solution<?>> Algorithm<List<T>> getAlgorithm(@NonNull String algorithmName, @NonNull AlgorithmOptions options, @NonNull Problem<T> problem) {
 		Algorithm<List<T>> algorithm = getAlgorithmReflection(algorithmName, options, problem);

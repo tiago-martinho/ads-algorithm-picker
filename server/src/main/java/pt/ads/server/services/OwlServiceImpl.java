@@ -17,6 +17,9 @@ import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
+/**
+ * Service for the business logic related to the OWL ontologies - load and execute queries against a given ontology.
+ */
 @Service
 @Slf4j
 public class OwlServiceImpl implements OwlService {

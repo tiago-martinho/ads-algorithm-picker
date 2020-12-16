@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import pt.ads.server.serializers.RoundingDoubleSerializer;
 
+/**
+ * The entrypoint for the ADS application.
+ * Initializes all the controllers and services (including the OWL ontology).
+ */
 @SpringBootApplication
 public class ServerApplication {
 

@@ -12,6 +12,9 @@ import org.uma.jmetal.solution.Solution;
 import pt.ads.server.model.*;
 import pt.ads.server.services.AlgorithmService;
 
+/**
+ * The controller for the main endpoint of this API service.
+ */
 @Slf4j
 @Controller
 @CrossOrigin

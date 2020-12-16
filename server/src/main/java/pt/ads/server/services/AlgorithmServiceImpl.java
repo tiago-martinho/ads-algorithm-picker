@@ -26,6 +26,9 @@ import pt.ads.server.exceptions.AlgorithmExecutionException;
 import pt.ads.server.exceptions.AlgorithmInputsException;
 import pt.ads.server.owl.OWLQueryBuilder;
 
+/**
+ * Service for the business logic related to the algorithms.
+ */
 @Service
 @Slf4j
 @SuppressWarnings("FieldCanBeLocal")

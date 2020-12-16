@@ -8,6 +8,9 @@ import pt.ads.server.model.AlgorithmListResults;
 import pt.ads.server.model.Experiment;
 import pt.ads.server.exceptions.AlgorithmException;
 
+/**
+ * Service for the business logic related to the algorithms.
+ */
 public interface AlgorithmService {
 
     /**

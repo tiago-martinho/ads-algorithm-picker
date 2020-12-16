@@ -1,5 +1,10 @@
 package pt.ads.server.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public enum VariableType {
-	INTEGER, DOUBLE, BOOLEAN
+	INTEGER,
+	DOUBLE,
+	@JsonAlias("BINARY")
+	BOOLEAN,
 }

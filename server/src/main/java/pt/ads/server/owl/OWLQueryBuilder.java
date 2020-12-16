@@ -2,6 +2,9 @@ package pt.ads.server.owl;
 
 import pt.ads.server.exceptions.AlgorithmInputsException;
 
+/**
+ * Uses the builder design pattern to simplify the creation of the query to be executed by the OWL ontology.
+ */
 public class OWLQueryBuilder {
 
 	private Integer minObjectives = null;

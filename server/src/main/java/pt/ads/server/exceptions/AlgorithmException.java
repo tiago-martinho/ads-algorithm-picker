@@ -1,5 +1,8 @@
 package pt.ads.server.exceptions;
 
+/**
+ * A generic algorithm exception.
+ */
 public class AlgorithmException extends RuntimeException {
 
 	public AlgorithmException() {

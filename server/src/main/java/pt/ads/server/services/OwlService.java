@@ -10,6 +10,9 @@ import org.swrlapi.sqwrl.SQWRLQueryEngine;
 import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
+/**
+ * Service for the business logic related to the OWL ontologies - load and execute queries against a given ontology.
+ */
 public interface OwlService {
 
     /**

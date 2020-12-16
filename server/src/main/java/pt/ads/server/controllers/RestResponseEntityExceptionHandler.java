@@ -11,6 +11,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import pt.ads.server.exceptions.AlgorithmExecutionException;
 import pt.ads.server.exceptions.AlgorithmInputsException;
 
+/**
+ * Handles any exceptions that have been raised while fulfilling a request.
+ */
 @Slf4j
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {

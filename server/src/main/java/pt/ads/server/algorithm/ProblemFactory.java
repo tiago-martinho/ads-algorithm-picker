@@ -18,7 +18,17 @@ import pt.ads.server.exceptions.AlgorithmExecutionException;
 @Slf4j
 public class ProblemFactory {
 
-	@Nullable
+	/**
+	 * Instantiates a problem based on the user parameters.
+	 *
+	 * @param type the problem type
+	 * @param variables the variables
+	 * @param objectives the objectives
+	 * @param <S> type solution type (double, integer, etc)
+	 * @return the problem
+	 * @throws AlgorithmExecutionException in case the problem was not found
+	 */
+	@NonNull
 	@SuppressWarnings({ "unchecked", "ConstantConditions" })
 	public static <S extends Solution<?>> Problem<S> getProblem(@NonNull VariableType type, @NonNull Collection<Variable> variables, @NonNull Collection<Objective> objectives)
 			throws AlgorithmExecutionException {

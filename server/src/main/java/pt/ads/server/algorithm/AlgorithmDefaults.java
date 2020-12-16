@@ -3,6 +3,9 @@ package pt.ads.server.algorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * Loads the defaults to be used in the algorithms, in case the user didn't specify them in the UI.
+ */
 @Component
 public class AlgorithmDefaults {
 
