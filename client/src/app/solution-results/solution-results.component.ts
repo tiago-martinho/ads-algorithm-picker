@@ -13,10 +13,14 @@ export class SolutionResultsComponent implements OnInit {
 
   selectedSolution: Solution;
 
-  selectableValues = ['Objective', 'Variable'];
+  selectableValues = ['Objectives', 'Variables'];
   selectedValue: string;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Select the first solution by default
+    this.selectedSolution = this.solutionResults[0];
+    this.selectedValue = this.selectableValues[0];
+  }
 }

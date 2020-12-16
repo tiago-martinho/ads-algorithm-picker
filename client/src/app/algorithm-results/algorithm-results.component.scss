@@ -1,0 +1,19 @@
+@import "../../colors";
+
+
+h5 {
+	font-size: inherit;
+	font-weight: bold;
+	margin-top: 1em;
+	margin-bottom: 0.1em;
+	color: darken($primary, 20%);
+
+	&:first-child {
+		margin-top: 0.2em;
+	}
+}
+
+ul {
+	padding-left: 1.5em;
+	text-indent: -0.4em;
+}

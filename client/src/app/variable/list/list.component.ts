@@ -16,7 +16,7 @@ export class VariableListComponent implements OnInit {
   variables: FormArray;
 
   public options = TypeOptions;
-  selectedOption = TypeOptions.INTEGER;
+  selectedOption = TypeOptions.DOUBLE;
 
   constructor() {
   }

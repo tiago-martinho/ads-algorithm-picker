@@ -2,8 +2,7 @@
     <ng-option
         *ngFor="let solution of solutionResults; index as solutionIndex"
         [value]="solution"
-        >{{ solutionIndex }}</ng-option
-    >
+        >Solution #{{ solutionIndex + 1 }}</ng-option>
 </ng-select>
 
 <div *ngIf="selectedSolution != null" class="mt-2">
@@ -20,33 +19,33 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Value</th>
+                <th scope="col" style="width: 1em; text-align: right;">#</th>
+                <th scope="col" style="width: 50%;">Name</th>
+                <th scope="col" style="width: 50%; text-align: right;">Value</th>
             </tr>
         </thead>
-        <tbody *ngIf="selectedValue === 'Variable'">
+        <tbody *ngIf="selectedValue === 'Objectives'">
+            <tr
+                *ngFor="
+                        let objective of inputs.objectives;
+                        index as objectiveIndex
+                    "
+            >
+                <th style="text-align: right" scope="row">{{ objectiveIndex }}</th>
+                <td>{{ objective.name }}</td>
+                <td style="text-align: right">{{ selectedSolution.objectives[objectiveIndex] | number:'1.3' }}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="selectedValue === 'Variables'">
             <tr
                 *ngFor="
                     let variable of inputs.variables;
                     index as variableIndex
                 "
             >
-                <th scope="row">{{ variableIndex }}</th>
+                <th style="text-align: right" scope="row">{{ variableIndex }}</th>
                 <td>{{ variable.name }}</td>
-                <td>{{ selectedSolution.variables[variableIndex] }}</td>
-            </tr>
-        </tbody>
-        <tbody *ngIf="selectedValue === 'Objective'">
-            <tr
-                *ngFor="
-                    let objective of inputs.objectives;
-                    index as objectiveIndex
-                "
-            >
-                <th scope="row">{{ objectiveIndex }}</th>
-                <td>{{ objective.name }}</td>
-                <td>{{ selectedSolution.objectives[objectiveIndex] }}</td>
+                <td style="text-align: right">{{ selectedSolution.variables[variableIndex] | number:'1.3' }}</td>
             </tr>
         </tbody>
     </table>

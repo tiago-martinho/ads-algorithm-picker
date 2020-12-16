@@ -84,13 +84,13 @@
 
     <!-- Results -->
     <div *ngIf="currentStep === 'results'">
-        <div class="section">
-            <div class="d-flex justify-content-center mt-4">
+        <div class="results-container section">
+            <div class="d-flex justify-content-center mt-4 results-header">
                 <button
                     type="button"
                     class="btn btn-dark col-6"
                     (click)="updateCollapseState('algorithm')"
-                    [attr.aria-expanded]="!isCollapsed"
+                    [attr.aria-expanded]="showAlgorithm"
                     aria-controls="collapse"
                 >
                     Algorithm
@@ -99,15 +99,15 @@
                     type="button"
                     class="btn btn-dark col-6 ml-2"
                     (click)="updateCollapseState('solutions')"
-                    [attr.aria-expanded]="!isCollapsed"
+                    [attr.aria-expanded]="showSolutions"
                     aria-controls="collapse"
                 >
                     Solutions
                 </button>
             </div>
 
-            <div id="collapse" [collapse]="isCollapsed" [isAnimated]="false">
-                <div class="well well-lg card card-block card-header">
+            <div class="results-content" id="collapse" [isAnimated]="false">
+                <div class="well well-lg card card-block">
                     <div *ngIf="showAlgorithm">
                         <app-algorithm-results
                             [algorithmResults]="solution.results.algorithm"
@@ -135,7 +135,7 @@
     </div>
 
     <div *ngIf="currentStep === 'fullResults'">
-        <div class="mt-4" style="max-height: 500px; overflow: auto">
+        <div class="raw-results">
             <pre>{{ solution | json }}</pre>
         </div>
     </div>

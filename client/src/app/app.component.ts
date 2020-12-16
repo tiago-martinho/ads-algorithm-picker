@@ -53,16 +53,9 @@ export class AppComponent implements OnInit {
   }
 
   updateCollapseState(button: string): void {
-    if (button === 'algorithm') {
-      this.showSolutions = false;
-      this.showAlgorithm = !this.showAlgorithm;
-    }
-    if (button === 'solutions') {
-      this.showSolutions = !this.showSolutions;
-      this.showAlgorithm = false;
-    }
-    this.isCollapsed =
-      !this.isCollapsed && !this.showAlgorithm && !this.showSolutions;
+    this.showAlgorithm = button === 'algorithm';
+    this.showSolutions = button === 'solutions';
+    this.isCollapsed = !this.showAlgorithm && !this.showSolutions;
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

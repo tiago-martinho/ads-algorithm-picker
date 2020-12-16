@@ -1,31 +1,24 @@
-<div class="mt-2 ml-2">
-    <p><b>Name:</b> {{ algorithmResults.name }}</p>
-    <p><b>Description:</b> {{ algorithmResults.description }}</p>
-    <p><b>Max Population Size:</b> {{ algorithmResults.maxPopulationSize }}</p>
-    <p><b>Crossover Operator:</b></p>
-    <p>
-        - Distribution Index:
-        {{ algorithmResults.crossoverOperator.distributionIndex }}
-    </p>
-    <p>
-        - Crossover Probability:
-        {{ algorithmResults.crossoverOperator.crossoverProbability }}
-    </p>
-    <p>
-        - Number of required parents:
-        {{ algorithmResults.crossoverOperator.numberOfRequiredParents }}
-    </p>
-    <p>
-        - Number of generated children:
-        {{ algorithmResults.crossoverOperator.numberOfGeneratedChildren }}
-    </p>
-    <p><b>Mutation Operator:</b></p>
-    <p>
-        - Distribution Index:
-        {{ algorithmResults.mutationOperator.distributionIndex }}
-    </p>
-    <p>
-        - Mutation probability:
-        {{ algorithmResults.mutationOperator.mutationProbability }}
-    </p>
+<div>
+    <h5>Name</h5>
+    <p>{{ algorithmResults.name }}</p>
+
+    <h5>Description</h5>
+    <p>{{ algorithmResults.description }}</p>
+
+    <h5>Max Population Size</h5>
+    <p>{{ algorithmResults.maxPopulationSize }}</p>
+
+    <h5>Crossover Operator</h5>
+    <ul>
+        <li>Distribution Index: {{ algorithmResults.crossoverOperator.distributionIndex }}</li>
+        <li>Crossover Probability: {{ algorithmResults.crossoverOperator.crossoverProbability }}</li>
+        <li>Number of required parents: {{ algorithmResults.crossoverOperator.numberOfRequiredParents }}</li>
+        <li>Number of generated children: {{ algorithmResults.crossoverOperator.numberOfGeneratedChildren }}</li>
+    </ul>
+
+    <h5>Mutation Operator</h5>
+    <ul>
+        <li>Distribution Index: {{ algorithmResults.mutationOperator.distributionIndex }}</li>
+        <li>Mutation probability: {{ algorithmResults.mutationOperator.mutationProbability }}</li>
+    </ul>
 </div>
