@@ -177,9 +177,9 @@ public class AlgorithmFactory {
 		mapper.put(double.class,  Long.valueOf(DEFAULT_NUMERICAL_VALUE).doubleValue());
 		mapper.put(Double.class,  Long.valueOf(DEFAULT_NUMERICAL_VALUE).doubleValue());
 		mapper.put(Problem.class, problem);
-		mapper.put(CrossoverOperator.class, getCrossoverOperator(problem, options));
-		mapper.put(MutationOperator.class, getMutationOperator(problem, options));
-		mapper.put(SelectionOperator.class, getSelectionOperator(problem, options));
+		mapper.put(CrossoverOperator.class,     getCrossoverOperator(problem, options));
+		mapper.put(MutationOperator.class,      getMutationOperator(problem, options));
+		mapper.put(SelectionOperator.class,     getSelectionOperator(problem, options));
 		mapper.put(SolutionListEvaluator.class, new SequentialSolutionListEvaluator<>());
 
 		return mapper;

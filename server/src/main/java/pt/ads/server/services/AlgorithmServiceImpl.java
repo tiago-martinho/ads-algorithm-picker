@@ -1,10 +1,7 @@
 package pt.ads.server.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
@@ -137,6 +134,10 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 
 				// TODO: Flip objective if it should NOT be minimized (use this: experiment.problem.minimizeObjective(i))
 				// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
+
+				// Remove duplicate contiguous results
+				Set<String> visited = new HashSet<>(results.size());
+				results.removeIf(result -> !visited.add(result.toString()));
 
 				log.trace("Algorithm {} generated {} solutions", algorithm.getClass().getSimpleName(), results.size());
 				return new AlgorithmListResults<>(inputs, experiment.problem, new AlgorithmResults<>(algorithm, results));

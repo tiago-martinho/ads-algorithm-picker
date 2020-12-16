@@ -8,7 +8,10 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class DoubleRoundedSerializer extends JsonSerializer<Double> {
+/**
+ * Serialize double floating numbers, rounding them up to the nearest 3rd decimal place.
+ */
+public class RoundingDoubleSerializer extends JsonSerializer<Double> {
 
 	@Override
 	public void serialize(Double value, JsonGenerator gen, SerializerProvider provider) throws IOException {
