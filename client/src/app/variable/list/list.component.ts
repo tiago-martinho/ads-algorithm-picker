@@ -22,10 +22,9 @@ export class VariableListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const val = getTypeValue(this.selectedOption);
     this.variables = new FormArray([
-      createNewVariable('Grain quality index', val ? -val : null, val),
-      createNewVariable('Grain cost', val ? -val : null, val)
+      createNewVariable('Grain quality index', 0,  100),
+      createNewVariable('Grain cost',          50, 150)
     ]);
 
     this.parent.addControl('type', new FormControl(this.selectedOption));
@@ -58,14 +57,4 @@ function createNewVariable(name, from, to): FormGroup {
     lowerLimit: new FormControl(from),
     upperLimit: new FormControl(to),
   });
-}
-
-function getTypeValue(type: TypeOptions): number {
-  if (type === TypeOptions.INTEGER) {
-    return 10;
-  } else if (type === TypeOptions.DOUBLE) {
-    return 0.5;
-  } else {
-    return null;
-  }
 }

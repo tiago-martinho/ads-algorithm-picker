@@ -1,21 +1,22 @@
-<ng-select [(ngModel)]="selectedSolution">
-    <ng-option
-        *ngFor="let solution of solutionResults; index as solutionIndex"
-        [value]="solution"
-        >Solution #{{ solutionIndex + 1 }}</ng-option>
-</ng-select>
+<div class="row">
+    <div class="col-6">
+        <ng-select [(ngModel)]="selectedSolution">
+            <ng-option *ngFor="let solution of solutionResults; index as solutionIndex" [value]="solution">
+                Solution #{{ solutionIndex + 1 }}
+            </ng-option>
+        </ng-select>
+    </div>
 
-<div *ngIf="selectedSolution != null" class="mt-2">
-    <ng-select [(ngModel)]="selectedValue">
-        <ng-option *ngFor="let value of selectableValues" [value]="value">{{
-            value
-        }}</ng-option>
-    </ng-select>
+    <div class="col-6">
+        <ng-select [(ngModel)]="selectedValue">
+            <ng-option *ngFor="let value of selectableValues" [value]="value">
+                {{ value }}
+            </ng-option>
+        </ng-select>
+    </div>
 </div>
 
-<br />
-
-<div *ngIf="selectedValue != null" class="mt-2 ml-2">
+<div *ngIf="selectedValue != null" class="mt-3 ml-2">
     <table class="table">
         <thead>
             <tr>
