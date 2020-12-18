@@ -23,8 +23,8 @@ export class VariableListComponent implements OnInit {
 
   ngOnInit(): void {
     this.variables = new FormArray([
-      createNewVariable('Grain quality index', 0,  100),
-      createNewVariable('Grain cost',          50, 150)
+      createNewVariable('Grain quality index', 0, 100),
+      createNewVariable('Grain cost', 50, 150)
     ]);
 
     this.parent.addControl('type', new FormControl(this.selectedOption));

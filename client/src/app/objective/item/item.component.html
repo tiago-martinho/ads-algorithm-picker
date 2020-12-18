@@ -4,12 +4,12 @@
             <input name="name" type="text" formControlName="name" placeholder="Name" />
         </div>
 
-        <div class="col-2 mr-4">
+        <div class="col-2 col-md-2 mr-4">
             <select name="type" formControlName="goal" [(ngModel)]="selectedOption">
                 <option *ngFor="let option of options | keyvalue" [ngValue]="option.value">{{getGoalName(option.value)}}</option>
             </select>
         </div>
-
+          
         <div class="col-1">
             <fa-icon (click)="removeSelf()" [icon]="iconTrash" class="icon-remove" size="lg" title="Remove objective"></fa-icon>
         </div>
