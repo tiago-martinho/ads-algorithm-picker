@@ -24,7 +24,7 @@ export class ObjectiveListComponent implements OnInit {
       createNewObjective('Cost'),
       createNewObjective('Quality', ObjectiveOptions.MAXIMIZE),
     ]);
-    this.parent.addControl('objectives', this.objectives);
+    this.parent.setControl('objectives', this.objectives);
   }
 
   addObjective(): void {

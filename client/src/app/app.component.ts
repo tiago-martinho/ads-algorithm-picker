@@ -27,7 +27,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentStep = 'form';
-    this.form = this.fb.group({});
+    this.form = this.fb.group({
+      description: '',
+    });
   }
 
   onSubmit(): void {

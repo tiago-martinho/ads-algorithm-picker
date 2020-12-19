@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { TypeOptions } from '../item/item.component';
 
@@ -18,8 +18,8 @@ export class VariableListComponent implements OnInit {
   public options = TypeOptions;
   selectedOption = TypeOptions.DOUBLE;
 
-  constructor() {
-  }
+  constructor() {}
+
 
   ngOnInit(): void {
     this.variables = new FormArray([
@@ -27,8 +27,8 @@ export class VariableListComponent implements OnInit {
       createNewVariable('Grain cost', 50, 150)
     ]);
 
-    this.parent.addControl('type', new FormControl(this.selectedOption));
-    this.parent.addControl('variables', this.variables);
+    this.parent.setControl('type', new FormControl(this.selectedOption));
+    this.parent.setControl('variables', this.variables);
   }
 
   addVariable(): void {
