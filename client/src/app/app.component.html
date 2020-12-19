@@ -4,7 +4,7 @@
     <div class="form" *ngIf="currentStep === 'form'">
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
             <div class="row">
-                <div class="col">
+                <div class="col-sm-12 col-md-9">
                     <!-- Description -->
                     <div class="section">
                         <div class="description-container">
@@ -43,12 +43,11 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- JSON -->
-
-                <div class="col mt-4 text-center">
-                    <pre>{{ form.value | json }}</pre>
+                <div class="col col-sm-12 col-md-3">
+                    <pre class="mt-4">{{ form.value | json }}</pre>
                 </div>
-
             </div>
         </form>
     </div>
