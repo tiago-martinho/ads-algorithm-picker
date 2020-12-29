@@ -72,10 +72,13 @@ WIP
 
 ### Client
 
-Install [Node.js](https://nodejs.org) (tested only with version 12.16.1). Download all the dependencies by running `npm install` on the project directory.
+Install [Node.js](https://nodejs.org) (tested only with version 12.16.1). Download all the dependencies by running `npm install` on the client directory.
+
+Install the angular CLI globally by running `npm install -g @angular/cli`.
 
 Start the application locally by running `ng serve` on the client directory. The server will be available at [localhost:4200](http://localhost:4200).
 
 ### Server
 
+The server is developed with Java version 11. Install an appropriate JDK to run the server locally (e.g [AdoptOpenJDK](https://adoptopenjdk.net/))
 The project can be imported to your IDE of choice as a Maven project and run from there. To run the server application from the command line run `mvn spring-boot:run`. The server will be available at [localhost:8080](http://localhost:8080)
