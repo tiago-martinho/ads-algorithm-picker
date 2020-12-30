@@ -31,7 +31,6 @@ public class IntegerProblem extends AbstractIntegerProblem implements Problem<In
 	@Override
 	public void evaluate(IntegerSolution solution) {
 		// Evaluator taken from NIntegerMin
-		// TODO: ask the client tho choose the evaluate function
 
 		for (int objective = 0; objective < getNumberOfObjectives(); objective++) {
 			int approximationToN = 0;

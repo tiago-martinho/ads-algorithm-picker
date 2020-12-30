@@ -31,8 +31,6 @@ public class DoubleProblem extends AbstractDoubleProblem implements Problem<Doub
 	@Override
 	public void evaluate(DoubleSolution solution) {
 		// Evaluator taken from Kursawe
-		// TODO: ask the client tho choose the evaluate function
-		//  Ask for each variable if it should be prioritized - this increases the weight given for that variable
 
 		double aux, xi, xj;
 		double[] fx = new double[getNumberOfObjectives()];

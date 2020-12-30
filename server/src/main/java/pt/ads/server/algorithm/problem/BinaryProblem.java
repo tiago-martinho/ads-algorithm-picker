@@ -36,7 +36,6 @@ public class BinaryProblem extends AbstractBinaryProblem implements Problem<Bina
 	@Override
 	public void evaluate(BinarySolution solution) {
 		// Evaluator taken from OneZeroMax
-		// TODO: ask the client tho choose the evaluate function
 
 		int counterOnes;
 		int counterZeroes;

@@ -135,9 +135,6 @@ public class AlgorithmServiceImpl implements AlgorithmService {
 				algorithm.run();
 				List<T> results = algorithm.getResult();
 
-				// TODO: Flip objective if it should NOT be minimized (use this: experiment.problem.minimizeObjective(i))
-				// TODO: Remove the solutions that are worse in every objective - leave only the best solution or the solutions that offer compromises (e.g. faster production, but more expensive)
-
 				// Remove duplicate contiguous results
 				Set<String> visited = new HashSet<>(results.size());
 				results.removeIf(result -> !visited.add(result.toString()));

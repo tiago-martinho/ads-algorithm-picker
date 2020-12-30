@@ -361,15 +361,6 @@ public class AlgorithmFactory {
 						.setArchive(new CrowdingDistanceArchive<>(100))
 						.build();
 
-//		case "MOCHC":
-//			return new MOCHCBuilder(problem).build(); // TODO BINARY
-
-//		case "MOEAD":
-//			return new MOEADBuilder(problem, new MOEADBuilder.Variant()).build(); // TODO DOUBLE
-
-//		case "MOMBI":
-//			return new MOMBI<>(problem, options.iterations, getCrossoverOperator(problem, options), getMutationOperator(problem, options), getSelectionOperator(problem, options), ...);
-
 			case "NSGAII":
 				return new NSGAIIBuilder<>(problem, getCrossoverOperator(problem, options), getMutationOperator(problem, options), options.populationSize)
 						.setMaxEvaluations(options.iterations)
@@ -384,9 +375,6 @@ public class AlgorithmFactory {
 						.setMutationOperator(getMutationOperator(problem, options))
 						.setSelectionOperator(getSelectionOperator(problem, options))
 						.build();
-
-//		case "OMOPSO":
-//			return new OMOPSOBuilder(problem, ...); // TODO DOUBLE
 
 			case "PAES":
 				return new PAESBuilder<>(problem)
@@ -417,9 +405,6 @@ public class AlgorithmFactory {
 						.setPopulationSize(options.populationSize)
 						.setMaxEvaluations(options.iterations)
 						.build();
-
-//		case "SMPSO":
-//			return new SMPSOBuilder(problem, ...) // TODO DOUBLE
 
 			case "SMSEMOA":
 				return new SMSEMOABuilder<>(problem, getCrossoverOperator(problem, options), getMutationOperator(problem, options))
