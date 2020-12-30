@@ -8,7 +8,7 @@ The website (client service) will be available at [localhost:5000](http://localh
 
 A list of all the endpoints available by the API can be seen at: http://localhost:5001/swagger-ui.html
 
-If you're having difficulty setting up the application, there is a production version at https://algorithm.sandrohc.net.
+There is also production version at https://algorithm.sandrohc.net. Keep in mind that it might not have the latest developments. 
 
 ### Loading images manually
 
@@ -30,7 +30,7 @@ For starting the _client_ and _server_ services manually, please execute: `docke
 
 ## Continuous Integration & Continuous Delivery (CI/CD)
 
-Through the use of [GitHub Actions](https://github.com/tiago-martinho/ads-algorithm-picker/actions), new Docker images are tested and deployed automatically for every commit sent to this Git repository.
+Through the use of [GitHub Actions](https://github.com/tiago-martinho/ads-algorithm-picker/actions), new Docker images are tested and deployed automatically for every commit sent to this Git repository. DockerHub Secrets are stored privately in this GitHub repository and used in the .github/docker.yml file.
 
 ## Documentation
 
@@ -66,7 +66,9 @@ First we find all the algorithm classes and builders, that extend the Algorithm 
 
 ### Docker
 
-WIP
+As mentioned in the quickstart section, Docker is being used for containerization and development purposes. You will need [Docker](https://www.docker.com/get-started) and [docker-compose](https://docs.docker.com/compose/) installed and running on your machine. If you're using Windows, the Docker install will install docker-compose automatically.
+
+Both the client and server directories have Dockerfiles that are being used by the docker-compose.yml file stored at the root of the repository to build the applications.
 
 ## Development
 
