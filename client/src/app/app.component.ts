@@ -50,6 +50,8 @@ export class AppComponent implements OnInit {
           this.error = error.message;
         }
       );
+
+      this.form.controls['description'].setValue('');
   }
 
   updateCollapseState(button: string): void {
