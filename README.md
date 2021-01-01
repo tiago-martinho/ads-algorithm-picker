@@ -84,6 +84,8 @@ Start the application locally by running `ng serve` on the client directory. The
 
 The server is developed with Java version 11. Install an appropriate JDK to run the server locally (e.g [AdoptOpenJDK](https://adoptopenjdk.net/)).
 
-The project can be imported to your IDE of choice as a Maven project and run from there. To run the server application from the command line run `mvn spring-boot:run`. 
+The project can be imported to your IDE of choice as a Maven project and run from there. Install all maven dependencies with `mvn clean install` the first time.
+
+To run the server application from the command line run `mvn spring-boot:run`. 
 
 The server will be available at [localhost:8080](http://localhost:8080)
