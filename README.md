@@ -8,6 +8,8 @@ The website (client service) will be available at [localhost:5000](http://localh
 
 A list of all the endpoints available by the API can be seen at: http://localhost:5001/swagger-ui.html
 
+There is also production version at https://algorithm.sandrohc.net. Keep in mind that it might not have the latest developments. 
+
 ### Loading images manually
 
 If you wish to load the Docker images manually, please execute:
